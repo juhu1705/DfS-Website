@@ -1,0 +1,38 @@
+{% extends 'home/home.html' %}
+
+{% block header %}
+{% endblock %}
+
+{% block sidebar %}
+{% endblock %}
+
+
+{% block content %}
+<div id="post-section">
+    <div class="container">
+        <div class="login-content">
+            <form method="post" enctype="multipart/form-data">
+                <h2>Karte hinzufügen</h2>
+
+                <img id="profile_picture" class="map_input" src="{{ url_for('static', filename='pictures/blank.png') }}" onclick="triggerPictureChoose()">
+
+                <input type="file" name="image_loader" id="image_loader" onchange="displayImage(this)">
+                    <div class="input-div name">
+                        <div class="i">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="div">
+                            <h5>Name</h5>
+                            <input class="input" name="filename" id="filename" maxlength="25" required>
+                        </div>
+                    </div>
+
+
+                <input type="submit" value="Hinzufügen" id="btnconfirm">
+
+            </form>
+        </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,89 @@
+{% extends 'home/home.html' %}
+
+{% block header %}
+
+{% endblock %}
+
+{% block content %}
+<div id="post-section">
+    <div class="container">
+        <div class="login-content">
+            <form method="post">
+                <h2 class="title">Charakter</h2>
+                <div class="input-div one">
+                    <div class="i">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="div">
+                        <h5>Name</h5>
+                        <input class="input" type="text" name="name" id="name" maxlength="25" required>
+                    </div>
+                </div>
+                <div class="input-div pass">
+                    <div class="i">
+                        <i class="fas fa-user-tag"></i>
+                    </div>
+                    <div class="div">
+                        <h5>Familie</h5>
+                        <input class="input" type="text" name="family" id="family" required>
+                    </div>
+                </div>
+                <div class="input-div selector-line">
+                    <div class="i">
+                        <i class="fas fa-user-tag"></i>
+                    </div>
+                    <div class="div">
+                        <h5>Species</h5>
+
+
+                        <div class="select-box select_species">
+                            <div class="option-container select_species">
+
+                                <div class="option Enfali">
+                                    <input type="radio" class="radio" id="Enfali" name="category">
+                                    <label for="Enfali">Enfali</label>
+                                </div>
+                                <div class="option Nithriln">
+                                    <input type="radio" class="radio" id="Nithriln" name="category">
+                                    <label for="Nithriln">Nithriln</label>
+                                </div>
+                                <div class="option Drache">
+                                    <input type="radio" class="radio" id="Drache" name="category">
+                                    <label for="Drache">Drache</label>
+                                </div>
+                                <div class="option Mensch">
+                                    <input type="radio" class="radio" id="Mensch" name="category">
+                                    <label for="Mensch">Mensch</label>
+                                </div>
+                                <div class="option Zwerg">
+                                    <input type="radio" class="radio" id="Zwerg" name="category">
+                                    <label for="Zwerg">Zwerg</label>
+                                </div>
+                                <div class="option Elf">
+                                    <input type="radio" class="radio" id="Elf" name="category">
+                                    <label for="Elf">Elf</label>
+                                </div>
+
+                            </div>
+
+                            <input class="input selected" name="species" id="select_species" value="Enfali" readonly="readonly">
+
+
+                            <div class="search-box">
+                                <input type="text" placeholder="Suche..." />
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="i arrow">
+                        <i class="fas fa-angle-down"></i>
+                    </div>
+                </div>
+
+                <input id="btnconfirm" type="submit" value="Erstellen">
+
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,38 @@
+{% extends 'home/home.html' %}
+
+{% block header %}
+
+{% endblock %}
+
+{% block content %}
+<div id="post-section">
+    <div class="container">
+        <div class="login-content">
+            <form method="post" autocomplete="off">
+                <h2 class="title">Willkommen</h2>
+                <div class="input-div one">
+                    <div class="i">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="div">
+                        <h5>Benutzername</h5>
+                        <input class="input" type="text" name="username" id="username" maxlength="25" required>
+                    </div>
+                </div>
+                <div class="input-div pass">
+                    <div class="i">
+                        <i class="fas fa-lock"></i>
+                    </div>
+                    <div class="div">
+                        <h5>Passwort</h5>
+                        <input class="input" type="password" name="password" id="password" required>
+                    </div>
+                </div>
+                <a class="forgot-p" href="{{ url_for('auth.reset_password') }}">Passwort vergessen?</a>
+                <input id="btnconfirm" type="submit" value="Einloggen">
+
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

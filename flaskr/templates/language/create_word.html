@@ -1,0 +1,79 @@
+{% extends 'home/home.html' %}
+
+{% block header %}
+
+{% endblock %}
+
+{% block content %}
+<div id="post-section">
+    <div class="container">
+        <div class="login-content">
+            <form method="post">
+                <h2 class="title">Sprache erstellen</h2>
+                <div class="input-div one">
+                    <div class="i">
+                        <i class="fas fa-tag"></i>
+                    </div>
+                    <div class="div">
+                        <h5>Wort</h5>
+                        <input class="input" type="text" name="word" id="word" maxlength="25" required>
+                    </div>
+                </div>
+                <div class="input-div one">
+                    <div class="i">
+                        <i class="fas fa-tag"></i>
+                    </div>
+                    <div class="div">
+                        <h5>Übersetzung</h5>
+                        <input class="input" type="text" name="translation" id="translation" maxlength="25" required>
+                    </div>
+                </div>
+                <div class="input-div selector-line">
+                    <div class="i">
+                        <i class="fas fa-user-tag"></i>
+                    </div>
+                    <div class="div">
+                        <h5>Wortart</h5>
+
+                        <div class="select-box select_species">
+                            <div class="option-container select_species">
+                                {% for word_category in word_categories %}
+                                <div class="option {{word_category['name']}}">
+                                    <input type="radio" class="radio" id="{{word_category['name']}}" name="category">
+                                    <label for="{{word_category['name']}}">{{word_category['name']}}</label>
+                                </div>
+                                {% endfor %}
+                            </div>
+
+                            <input class="input selected" name="word_category" id="select_word_category" value="Wähle eine Wortart" readonly="readonly">
+
+
+                            <div class="search-box">
+                                <input type="text" placeholder="Suche..." />
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="i arrow">
+                        <i class="fas fa-angle-down"></i>
+                    </div>
+                </div>
+                <div class="input-div text-area">
+                    <div class="i">
+                        <i class="far fa-comment-dots"></i>
+                    </div>
+
+                    <div class="div">
+                        <h5>Beschreibung</h5>
+                        <textarea class="input" name="description" id="area-for-comment" rows="4"></textarea>
+                    </div>
+
+                </div>
+
+                <input id="btnconfirm" type="submit" value="Erstellen">
+
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+
+{% block sidebar %}
+{% if g.user is not none %}
+<li class="topbar"><a href="{{ url_for('discussions.create_comment', discussion_id = discussion['id']) }}"><i
+        class="fas fa-folder-plus"></i></a></li>
+{% if g.user is not none and (discussion['author'] == g.user['id'] or g.user['level'] >= 2) %}
+<li class="topbar"><a href="{{ url_for('discussions.delete_discussion', id = discussion['id']) }}"
+       onclick="return confirm('Wollen sie wirklich die Diskussion löschen? Sie kann nicht wiederhergestellt werden!')"><i
+        class="fas fa-trash"></i></a></li>
+{% endif %}
+{% endif %}
+{% endblock %}
+{% block content %}
+<div id="post-section">
+    <div id="header-section">
+        <table>
+            <tr>
+                <th>{{discussion['title']}}</th>
+                <th>By: {{discussion['name']}}</th>
+                <th><a href="{{ url_for('discussions.create_comment', discussion_id = discussion['id']) }}">Neu</a></th>
+            </tr>
+        </table>
+    </div>
+
+    <div class="scrollable">
+        {% for comment in comments %}
+        <div class="topic-section">
+            {% if g.user is not none and (discussion['author'] == g.user['id'] or comment['author'] == g.user['id'] or g.user['level'] >= 2) %}
+            <a href="{{ url_for('discussions.comment', id=comment['id'], discussion_id=discussion['id']) }}">
+                {% endif %}
+                <article class="post">
+                    <header>
+                        <div>
+                            <table>
+                                <tr>
+                                    <td width="98%">
+                                        <div>
+                                            <table>
+                                                <tr>
+                                                    <th class="align-left">{{ comment['name'] }}</th>
+                                                    <th class="align-right">{{ comment['created'] }}</th>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                        <div>
+                                            <table>
+                                                <tr>
+                                                    <td>{{ comment['value'] }}</td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </td>
+                                    {% if g.user is not none and (discussion['author'] == g.user['id'] or comment['author'] == g.user['id'] or g.user['level'] >= 2) %}
+                                    <td width="2%" align="right">
+                                        <a href="{{url_for('discussions.delete_comment', id=comment['id'], discussion_id=comment['discussion_id'])}}"
+                                           onclick="return confirm('Wollen sie wirklich ihren Kommentar löschen? Er kann nicht wiederhergestellt werden!')"><i
+                                                class="fas fa-trash"></i></a>
+                                    </td>
+                                    {% endif %}
+                                </tr>
+                            </table>
+                        </div>
+                    </header>
+                </article>
+                {% if g.user is not none and (discussion['author'] == g.user['id'] or comment['author'] == g.user['id'] or g.user['level'] >= 2) %}
+            </a>
+            {% endif %}
+        </div>
+        {% endfor %}
+    </div>
+
+</div>
+
+{% endblock %}

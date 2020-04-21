@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block sidebar %}
+{% if g.user is not none and g.user['level'] > 1 %}
+<li class="topbar"><a href="{{url_for('language.create_language')}}"><i class="fas fa-folder-plus"></i></a></li>
+{% endif %}
+{% endblock %}
+
+{% block content %}
+<div id="post-section">
+    <div id="header-section">
+        <div id="container">
+            <div class="login-content">
+                <h2 class="title"><a href="{{url_for('language.create_language')}}">Sprachen</a></h2>
+            </div>
+        </div>
+    </div>
+
+    <div id="topic-section">
+        <div class="search">
+            <div class="input-div">
+                <div class="i">
+                    <i class="fas fa-search"></i>
+                </div>
+                <div class="div">
+                    <h5>Suche</h5>
+                    <input class="input" type="text" name="search" id="search" onkeyup="searchCharacters()">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="scrollable">
+        {% for language in languages %}
+        <a href="{{url_for('language.language', id=language['id'])}}">
+            <div class="topic-section {{language['name']}}" id="{{language['name']}}">
+                <table>
+                    <tr>
+                        <th class="language_header">{{language['name']}}</th>
+                    </tr>
+                    <tr>
+                        <td class="language_description">{{language['description']}}</td>
+                    </tr>
+                </table>
+            </div>
+        </a>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}

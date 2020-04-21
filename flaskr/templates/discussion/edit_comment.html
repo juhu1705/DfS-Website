@@ -1,0 +1,41 @@
+{% extends 'home/home.html' %}
+
+{% block sidebar %}
+{% if g.user is not none %}
+{% if discussion['author'] == g.user['id'] or comment['author'] == g.user['id'] or g.user['level'] >= 2 %}
+<li class="topbar"><a href="{{url_for('discussions.delete_comment', id=comment['id'], discussion_id=comment['discussion_id'])}}" onclick="return confirm('Wollen sie wirklich ihren Kommentar löschen? Er kann nicht wiederhergestellt werden!')"><i class="fas fa-trash"></i></a></li>
+{% endif %}
+{% endif %}
+{% endblock %}
+
+{% block header %}
+
+{% endblock %}
+
+{% block content %}
+<div id="post-section">
+    <div class="container">
+        <div class="login-content">
+            <form method="post">
+                <h2 class="title">Kommentar bearbeiten</h2>
+                <div class="input-div text-area">
+                    <div class="i">
+                        <i class="far fa-comment-dots"></i>
+                    </div>
+
+                    <div class="div">
+                        <h5>Kommentar:</h5>
+                        <textarea class="input" name="value" id="area-for-comment" rows="4" required>{{ comment['value'] }}</textarea>
+                    </div>
+
+                </div>
+
+                  <input type="submit" value="Erstellen" id="btnconfirm">
+
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block background %}{{url_for('static', filename='pictures/DfS-StartScreen.JPG')}}{% endblock %}
