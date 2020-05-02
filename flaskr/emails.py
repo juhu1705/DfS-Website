@@ -19,7 +19,7 @@ def _smtp_create() -> Union[smtplib.SMTP, smtplib.SMTP_SSL]:
     smtp = smtplib.SMTP("smtp.live.com:587")
     smtp.starttls()
 
-    with open(os.path.join('C:\\Users\\Fabiu\\Documents', '2357.p')) as file:
+    with open('D:\\Users\\Fabius\\Documents\\2357.p') as file:
         lines = file.read().splitlines()
         username = lines[0]
         password = lines[1]

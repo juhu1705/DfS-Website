@@ -31,12 +31,17 @@ def language(id):
     db = get_db()
 
     language = db.execute('SELECT * FROM language WHERE id = ?', (id, )).fetchone()
+
+    if language is None:
+        flash('Diese Sprache existiert nicht!')
+        return redirect(url_for('language.index'))
+
     words = db.execute('SELECT * FROM word WHERE language_id = ?', (id, )).fetchall()
 
     return render_template('language/language.html', language=language, words=words)
 
 
-@bp.route('/create', methods=('GET', 'POST'))
+@bp.route('/create/language', methods=('GET', 'POST'))
 @admin_required
 def create_language():
     if request.method == 'POST':
@@ -45,11 +50,11 @@ def create_language():
             description = request.form['description']
         except:
             flash('Deine mitgegebenen Daten konnten nicht gefunden werden. Bitte versuche es noch einmal.')
-            return render_template('language/create_language.html')
+            return render_template('language/create.html', title='Sprache hinzufügen')
 
         if not name or not description:
             flash('Sie haben nicht alle benötigten Werte angegeben!')
-            return render_template('language/create_language.html')
+            return render_template('language/create.html', title='Sprache hinzufügen')
 
         db = get_db()
 
@@ -57,13 +62,13 @@ def create_language():
 
         if language is not None:
             flash('Diese Sprache existiert bereits.')
-            return render_template('language/create_language.html')
+            return render_template('language/create.html', title='Sprache hinzufügen')
 
         db.execute('INSERT INTO language (name, description) VALUES (?, ?)', (name, description))
         db.commit()
 
         return redirect(url_for('language.index'))
-    return render_template('language/create_language.html')
+    return render_template('language/create.html', title='Sprache hinzufügen')
 
 
 @bp.route('/<int:id>/edit', methods=('GET', 'POST'))
@@ -100,12 +105,9 @@ def edit_language(id):
         if language['description'] != description:
             db.execute('UPDATE language SET description = ? WHERE id = ?', (description, id))
 
-
-        db.execute('INSERT INTO language (name, description) VALUES (?, ?)', (name, description))
         db.commit()
 
-        return redirect(url_for('language.index'))
-
+        return redirect(url_for('language.language', id=id))
 
     db = get_db()
 
@@ -115,15 +117,57 @@ def edit_language(id):
     return render_template('language/edit_language.html', language=language, writing=writing)
 
 
-@bp.route('/<int:id>/create_word', methods=('GET', 'POST'))
+@bp.route('/<int:id>/delete', methods=('GET', 'POST'))
 @admin_required
-def create_word_category(id):
-    return render_template('')
+def delete_language(id):
+    db = get_db()
+
+    db.execute('DELETE FROM language WHERE id = ?', (id, ))
+    db.execute('DELETE FROM word WHERE language_id = ?', (id, ))
+
+    words = db.execute('SELECT * FROM word WHERE language_id = ?', (id, )).fetchall()
+    for word in words:
+        db.execute('DELETE FROM word_declinations WHERE parent_word_id = ?', (word['id'], ))
+
+    db.execute('DELETE FROM word WHERE language_id = ?', (id, ))
+
+    db.commit()
+
+    return redirect(url_for('language.index'))
+
+
+@bp.route('/<int:id>/add_category/<int:category_id>', methods=('GET', 'POST'))
+@admin_required
+def create_word_category(id, category_id):
+    db = get_db()
+
+    language = db.execute('SELECT * FROM language WHERE id = ?', (id, )).fetchone()
+    category = db.execute('SELECT * FROM word_category WHERE id = ?', (category_id, )).fetchone()
+
+    if language is not None and category is not None:
+        if db.execute('SELECT * FROM language_to_word_category WHERE language_id = ? AND word_category_id = ?',
+                      (id, category_id)).fetchone() is None:
+            db.execute('INSERT INTO language_to_word_category (language_id, word_category_id) VALUES (?, ?)',
+                       (id, category_id))
+            db.commit()
+        else:
+            flash('Dieser Eintrag existiert bereits.')
+    else:
+        flash('Sprache oder Wortart existiert nicht!')
+
+    return redirect(url_for('language.language', id=id))
 
 
 @bp.route('/<int:id>/create_word', methods=('GET', 'POST'))
 @admin_required
 def create_word(id):
+    db = get_db()
+
+    categories = db.execute('SELECT wc.id, wc.name, wc.description'
+                            ' FROM word_category wc, language_to_word_category ltwc'
+                            ' WHERE ltwc.language_id = ? AND ltwc.word_category_id = wc.id',
+                            (id, )).fetchall()
+
     if request.method == 'POST':
         try:
             word = request.form['word']
@@ -132,22 +176,20 @@ def create_word(id):
             word_category = request.form['word_category']
         except:
             flash('Deine mitgegebenen Daten konnten nicht gefunden werden. Bitte versuche es noch einmal.')
-            return render_template('language/create_language.html')
+            return render_template('language/create_language.html', categories=categories)
 
         if not translation or not word or not word_category:
             flash('Sie haben nicht alle benötigten Werte angegeben!')
-            return render_template('language/create_language.html')
+            return render_template('language/create_language.html', categories=categories)
 
         if not description:
             description = ''
-
-        db = get_db()
 
         word_category_check = db.execute('SELECT * FROM word_category WHERE name = ?', (word_category,)).fetchone()
 
         if word_category_check is None:
             flash('Diese Wortart existiert nicht!')
-            return render_template('language/create_word.html')
+            return render_template('language/create_word.html', categories=categories)
 
         word_check = db.execute('SELECT * FROM word WHERE word = ? AND translation = ?'
                                 ' AND language_id = ? AND word_category_id = ?',
@@ -155,11 +197,42 @@ def create_word(id):
 
         if word_check is not None:
             flash('Dieses Wort existiert bereits.')
-            return render_template('language/create_word.html')
+            return render_template('language/create_word.html', categories=categories)
 
         db.execute('INSERT INTO language (word, translation, description, word_category_id, language_id)'
                    ' VALUES (?, ?, ?, ?, ?)', (word, translation, description, word_category_check['id'], id))
         db.commit()
 
         return redirect(url_for('language.language', id=id))
-    return render_template('language/create_word.html')
+
+    return render_template('language/create_word.html', categories=categories)
+
+
+@bp.route('/create/category', methods=('GET', 'POST'))
+@admin_required
+def create_category():
+    if request.method == 'POST':
+        try:
+            name = request.form['name']
+            description = request.form['description']
+        except:
+            flash('Deine mitgegebenen Daten konnten nicht gefunden werden. Bitte versuche es noch einmal.')
+            return render_template('language/create.html', title='Wortart hinzufügen')
+
+        if not name or not description:
+            flash('Sie haben nicht alle benötigten Werte angegeben!')
+            return render_template('language/create.html', title='Wortart hinzufügen')
+
+        db = get_db()
+
+        category = db.execute('SELECT * FROM word_category WHERE name = ?', (name, )).fetchone()
+
+        if category is not None:
+            flash('Diese Wortart existiert bereits.')
+            return render_template('language/create.html', title='Wortart hinzufügen')
+
+        db.execute('INSERT INTO word_category (name, description) VALUES (?, ?)', (name, description))
+        db.commit()
+
+        return redirect(url_for('language.index'))
+    return render_template('language/create.html', title='Wortart hinzufügen')

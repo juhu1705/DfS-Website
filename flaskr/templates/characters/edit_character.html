@@ -101,13 +101,6 @@
                                     <label for="{{c_tag['information_title']}}.{{c_tag['value']}}.option">{{tag['information_title']}}</label>
                                 </div>
                                 {% endfor %}
-                                <div class="option add">
-                                    <form method="post">
-                                        <input type="hidden" class="radio" name="add_tag">
-                                        <input type="submit" class="radio" id="add.option" name="category">
-                                        <label for="add.option">Tag hinzufügen</label>
-                                    </form>
-                                </div>
                             </div>
                             {% for tag in tags %}
                             {% if tag['position'] == c_tag['position'] %}

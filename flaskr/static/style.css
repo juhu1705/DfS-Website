@@ -86,32 +86,56 @@ body {
 
 .header-links {
     position: absolute;
-    top: 0.60em;
+    top: 0;
     right: 0.60em;
+    bottom: 0;
 }
 
 .topbar {
-    padding: 5px;
-    background-color: rgba(250, 250, 250, .4);
-    display: inline;
-    border-radius: 5px;
+    display: inline-block;
+    border-radius: 50%;
     transition: ease-in-out 0.5s;
+    height: 100%;
 }
 
 .topbar a {
+    position: relative;
+    align-items: center;
+    display: grid;
+    height: 100%;
+}
+
+.topbar a i {
     color; #d9d9d9;
+    padding: 5px;
+    background-color: rgba(250, 250, 250, .4);
+    border-radius: 50%;
     transition: ease-in-out 0.5s;
+}
+
+.topbar-description {
+    display: none;
+    width: 0;
+    transition: ease-in-out 0.5s;
+}
+
+.topbar a:hover .topbar-description,
+.topbar a:focus .topbar-description {
+    width: 100%;
+    display: inline;
 }
 
 .topbar:hover a,
 .topbar a:focus {
-    color: #38d39f;
+    outline: none;
+
 }
 
-.topbar a:hover,
-.topbar a:focus {
+.topbar a:hover i,
+.topbar a:focus i {
     padding: 5px;
-    border-radius: 5px;
+    color: #17694d;
+    border-radius: 50%;
     background-color: rgba(250, 250, 250, .6);
 }
 
@@ -168,8 +192,10 @@ body {
     transition: .4s;
 }
 
-.topics-right li:hover a {
+.topics-right li:hover a,
+.topics-right li a:focus {
     padding-left: 2.75em;
+    outline: green 2px;
 }
 
 .sidebar .topics-right a i {
@@ -545,10 +571,6 @@ p {
 
 .post {
     width: 100%;
-}
-
-.scrollable {
-    min-height: 300px;
 }
 
 /* Text alignes */

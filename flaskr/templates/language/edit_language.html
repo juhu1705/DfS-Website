@@ -1,7 +1,9 @@
 {% extends 'home/home.html' %}
 
-{% block header %}
-
+{% block sidebar %}
+{% if g.user is not none and g.user['level'] > 1 %}
+<li class="topbar"><a href="{{url_for('language.delete_language', id=language['id'])}}" onclick="return confirm('Wollen sie wirklich diese Sprache löschen? Alle Wörter und Informationen werden unwiederruflich mitgelöscht!')"><i class="fas fa-trash"></i></a></li>
+{% endif %}
 {% endblock %}
 
 {% block content %}
@@ -67,7 +69,7 @@
                     </div>
                 </div>
 
-                <input id="btnconfirm" type="submit" value="Erstellen">
+                <input id="btnconfirm" type="submit" value="Überschreiben">
 
             </form>
         </div>

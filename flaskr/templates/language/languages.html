@@ -8,6 +8,7 @@
 
 {% block content %}
 <div id="post-section">
+
     <div id="header-section">
         <div id="container">
             <div class="login-content">
@@ -15,6 +16,7 @@
             </div>
         </div>
     </div>
+
 
     <div id="topic-section">
         <div class="search">
@@ -31,6 +33,13 @@
     </div>
 
     <div class="scrollable">
+        <div class="topic-section sprachen" id="languages">
+            <table>
+                <tr>
+                    <th>Sprachen</th>
+                </tr>
+            </table>
+        </div>
         {% for language in languages %}
         <a href="{{url_for('language.language', id=language['id'])}}">
             <div class="topic-section {{language['name']}}" id="{{language['name']}}">
@@ -45,6 +54,16 @@
             </div>
         </a>
         {% endfor %}
+    </div>
+    <div class="scrollable">
+        <div class="topic-section writing" id="writing">
+            <table>
+                <tr>
+                    <th>Schriften</th>
+                </tr>
+            </table>
+        </div>
+
     </div>
 </div>
 
