@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="de" dir="ltr">
+<head>
+    <meta charset="utf-8">
+    <title>Die fünf Schwerter</title>
+    <link rel="icon" href="/static/pictures/Profilbild.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="/static/pictures/Profilbild.ico" type="image/x-icon">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="https://kit.fontawesome.com/a37df8e790.js" crossorigin="anonymous"></script>
+    <style>
+        {% block special_styling %}{% endblock %}
+    </style>
+</head>
+
+<body>
+<div class="header">
+    <input type="checkbox" id="check">
+    <label for="check">
+        <i class="fas fa-bars" id="btn"></i>
+    </label>
+
+    <div class="sidebar">
+        <div id="sidebar_header_grid">
+            <header>Themen</header>
+            <div class="sidebar_background">
+                <label for="check">
+                    <i class="fas fa-times" id="cancel"></i>
+                </label>
+            </div>
+        </div>
+        <ul class="topics-right">
+            <li><a href="{{ url_for('home.index') }}"><i class="fas fa-home"></i>Home</a></li>
+            <li><a href="{{url_for('characters.index')}}"><i class="fas fa-female"></i>Charaktere</a></li>
+            <li><a href="#"><i class="fas fa-calendar-week"></i>Zeitlinie</a></li>
+            <li><a href="{{url_for('language.index')}}"><i class="fas fa-language"></i>Sprachen</a></li>
+            <li><a href="{{ url_for('map.index') }}"><i class="fas fa-map"></i>Karte</a></li>
+            <li><a href="#"><i class="fas fa-palette"></i>Fanart</a></li>
+            <li><a href="#"><i class="fas fa-bookmark"></i>Kurzgeschichten</a></li>
+            <li><a href="{{ url_for('discussions.index') }}"><i class="far fa-comment-dots"></i>Diskussionen</a></li>
+        </ul>
+    </div>
+    <h1>Die fünf Schwerter</h1>
+    <ul class="header-links">
+        {% if g.user is none %}
+        <li class="topbar">
+            <a href="{{url_for('auth.login')}}">
+                <i class="fas fa-sign-in-alt"></i>
+                <span>Login</span>
+            </a>
+        </li>
+        <li class="topbar"><a href="{{url_for('auth.register')}}"><i class="fas fa-plus-circle"></i><span>Register</span></a></li>
+        {% else %}
+        <li class="topbar"><a href="{{url_for('auth.logout')}}"><i class="fas fa-sign-out-alt"></i><span>Logout</span></a></li>
+        <li class="topbar"><a href="{{url_for('auth.profile')}}"><i class="fas fa-user-circle"></i><span>Profil</span></a></li>
+        {% endif %}
+        <li class="topbar"><a href="{{url_for('home.profiles')}}"><i class="fas fa-users"></i><span>Profile</span></a></li>
+        {% block sidebar %}
+        {% endblock %}
+    </ul>
+</div>
+
+{% block direct_body %}{% endblock %}
+
+<div id="page-section">
+    <div id="page">
+        <main>
+            <div>
+                <noscript>
+                    <p class="warn">
+                        JavaScript ist in Ihrem Browser deaktiviert bzw. nicht unterstützt.
+                        Diese Seite benötigt JavaScript, um richtig zu funktionieren.
+                    </p>
+                </noscript>
+
+                {% block header %}{% endblock %}
+
+
+                {% block content %}{% endblock %}
+            </div>
+            {% block content_new %}{% endblock %}
+        </main>
+        <footer>
+            <div class="footer_top"></div>
+            <div class="footer">
+                <div class="left_footer">
+                    <div class="footer_header">Kontakt</div>
+                    <div class="footer_text">E-Mail: <a href='mailto:fabius.mettner@gmx?subject=DfS  Benutzeranfrage' class="my_mail">fabius.mettner@gmx.de</a></div>
+                </div>
+                <div class="left_footer">
+                    <div class="footer_header">
+                        Andere Medien
+                    </div>
+                    <div class="footer_text">
+                        <div class="medias">
+                            <a href="https://discord.gg/t3zWs8N " id="discord">
+                                <i class="fab fa-discord"></i>
+                                <div>Discord</div>
+                            </a>
+                            <a href="https://github.com/juhu1705" id="github">
+                                <i class="fab fa-github"></i>
+                                <div>GitHub</div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="right_footer">
+                    <div class="footer_header">Weitere Projekte</div>
+                    <div class="footer_text">
+                        DfS-Minecraft-Mod: <a href="https://github.com/juhu1705/DFSMod">https://github.com/juhu1705/DFSMod</a>
+                        <br>
+                        <br>
+                        CaRP-Assigner: <a href="https://github.com/juhu1705/CaRP">https://github.com/juhu1705/CaRP</a>
+                    </div>
+                </div>
+                <div class="right_footer">
+                    <div class="footer_header">Über die Website</div>
+                    <div class="footer_text"><a href="#">Impressum</a> <i class="fas fa-circle"></i> <a href="#">Datenschutz</a>  <i class="fas fa-circle"></i> <a href="./text.html">Lizenzen</a>
+                        <br>
+                        <br>
+                        <i class="far fa-copyright"></i>
+                        Fabius Mettner
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+
+
+</div>
+
+
+
+<div class="flash-container">
+    {% for message in get_flashed_messages() %}
+    <div class="flash flash-error" tabindex="0">{{ message }}</div>
+    {% endfor %}
+</div>
+
+<script src="{{ url_for('static', filename='script.js') }}" charset="utf-8"></script>
+
+</body>
+
+</html>

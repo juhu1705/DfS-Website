@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block sidebar %}
+{% if g.user is not none and g.user['level'] >= 2 %}
+<li class="topbar"><a href="{{url_for('language.create_category')}}"><i class="fas fa-tag"></i></a></li>
+{% endif %}
+{% endblock %}
+
+{% block content %}
+<div id="post-section">
+    <div class="container">
+        <div class="login-content">
+            <div>
+                <div>
+                    <h2>Wortarten</h2>
+                </div>
+                <div class="list-information">
+                    <div class="scrollable">
+                        {% for category in categories %}
+                        <div class="line2">
+                            <a class="div" href="{{ url_for('language.edit_category', id = category['id']) }}">
+                                <h4>{{ category['name'] }}</h4>
+                            </a>
+                            <div class="trash">
+                                <a href="{{ url_for('language.delete_category', id = category['id']) }}">
+                                    <i class="fas fa-trash"></i>
+                                </a>
+                            </div>
+                        </div>
+                        {% endfor %}
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block sidebar %}
+{% if g.user is not none and g.user['level'] >= 1 %}
+<li class="topbar"><a href="{{ url_for('map.upload_map') }}"><i class="fas fa-folder-plus"></i></a></li>
+{% endif %}
+<li class="topbar"><a href="#"><i class="fas fa-exchange-alt"></i></a></li>
+{% endblock %}
+
+{% block direct_body %}
+<div class="maps">
+    {% for map in maps %}
+
+    {% endfor %}
+</div>
+
+{% endblock %}

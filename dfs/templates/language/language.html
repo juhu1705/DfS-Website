@@ -1,0 +1,115 @@
+{% extends 'base.html' %}
+
+{% block sidebar %}
+{% if g.user is not none and g.user['level'] > 1 %}
+<li class="topbar"><a href="{{url_for('language.create_word', id=language['id'])}}"><i class="fas fa-folder-plus"></i></a></li>
+<li class="topbar"><a href="{{url_for('language.edit_language', id=language['id'])}}"><i class="fas fa-cog"></i></a></li>
+{% endif %}
+{% endblock %}
+
+{% block content %}
+<div id="post-section">
+    <div id="header-section">
+        <div id="container">
+            <div class="login-content">
+
+                <table>
+                    <tr>
+                        <th class="language_header">{{language['name']}}</th>
+                    </tr>
+                    <tr>
+                        <td class="language_description">{{language['description']}}</td>
+                    </tr>
+                </table>
+
+            </div>
+        </div>
+    </div>
+
+    <div id="topic-section">
+        <div class="search">
+            <div class="input-div">
+                <div class="i">
+                    <i class="fas fa-search"></i>
+                </div>
+                <div class="div">
+                    <h5>Suche</h5>
+                    <input class="input" type="text" name="search" id="search" onkeyup="searchCharacters()">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="scrollable">
+        {% for category in categories %}
+
+        <div class="topic-section {{category['name']}}" id="{{ category['name'] }}">
+            <table>
+                <tr>
+                    <th>{{ category['name'] }}</th>
+                </tr>
+            </table>
+        </div>
+
+
+        {% for word in words %}
+
+        {% if word['word_category_id'] == category['id'] %}
+        <a href="#">
+            <div class="topic-section {{word['word']}} {{word['translation']}} {{category['name']}}" id="word_design">
+                <div class="table">
+
+                    <div class="cell_middle">{{word['word']}}</div>
+                    <div class="cell_middle">{{word['translation']}}</div>
+
+                </div>
+                {% if word['description'] != Null and word['description'] != '' %}
+                <div class="description_word">{{word['description']}}</div>
+                {% endif %}
+            </div>
+        </a>
+
+        {% endif %}
+
+        {% endfor %}
+
+        {% endfor %}
+
+        {% if g.user is not none and g.user['level'] > 1 %}
+        <div class="topic-section 0" id="1">
+            <div class="input-div selector-line2">
+                <div class="div">
+
+                    <div class="selected special">Wortart hinzufügen</div>
+
+
+                    <div class="select-box select_species">
+                        <div class="option-container select_species">
+                            {% for category in all_categories %}
+                            <a href="{{ url_for('language.add_category_to_language', id=language['id'], category_id=category['id']) }}">
+                                <div class="option {{category['name']}}">
+
+                                    <input type="radio" class="radio" id="{{category['name']}}" name="category">
+                                    <label for="{{category['name']}}">{{category['name']}}</label>
+
+                                </div>
+                            </a>
+                            {% endfor %}
+                        </div>
+
+                        <div class="search-box">
+                            <input type="text" placeholder="Suche..." />
+                        </div>
+                    </div>
+
+                </div>
+                <div class="i arrow">
+                    <i class="fas fa-angle-down"></i>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+{% endblock %}
