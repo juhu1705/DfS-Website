@@ -1,3 +1,9 @@
-/venv/
-/instance/
-/.idea/
+# alles ignorieren...
+/*
+
+# ...aber nicht diese Dateien/Verzeichnisse
+!/flaskr/
+!/.gitignore
+
+# pycache-Verzeichnisse überall ignorieren
+__pycache__/
