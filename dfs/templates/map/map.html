@@ -1,17 +1,24 @@
 {% extends 'base.html' %}
 
-{% block sidebar %}
-{% if g.user is not none and g.user['level'] >= 1 %}
-<li class="topbar"><a href="{{ url_for('map.upload_map') }}"><i class="fas fa-folder-plus"></i></a></li>
-{% endif %}
-<li class="topbar"><a href="#"><i class="fas fa-exchange-alt"></i></a></li>
-{% endblock %}
+{% block content %}
+<div id="post-section">
+    <div id="header-section">
+        <div id="container">
+            <div class="login-content discussion_topbar">
+                <div class="topic" id="discussions_title">Karten</div>
+                <a class="btnredirect" href="{{url_for('map.upload_map')}}"><div><span>Neu</span></div><i class="fas fa-plus"></i></a>
+            </div>
 
-{% block direct_body %}
-<div class="maps">
-    {% for map in maps %}
+        </div>
+    </div>
 
-    {% endfor %}
+    <div class="maps">
+        {% for map in maps %}
+            <a class="map" href="{{ url_for('map.send_map', name=map) }}">
+                <div class="map_name">{{ map.split('.')[0] }}</div>
+                <img class="map_img" src="{{ url_for('map.send_map', name=map) }}">
+            </a>
+        {% endfor %}
+    </div>
 </div>
-
 {% endblock %}

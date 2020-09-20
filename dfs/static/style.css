@@ -1038,6 +1038,8 @@ h2 {
     margin: 0 0 2rem 0;
 	color: #333;
 	font-size: 2rem;
+	padding-bottom: 1rem;
+    border-bottom: 1px solid lightgrey;
 }
 
 #btnconfirm {
@@ -1094,10 +1096,28 @@ h2 {
 
 .profile_picture {
     display: block;
-    width: 50px;
-    height: 50px;
+    width: 6em;
+    height: 6em;
     border-radius: 50%;
-    margin: 10px auto;
+    margin: 2rem 2.5rem 0rem 0rem;
+    cursor: pointer;
+}
+
+.edit_picture_text div {
+    background: #4c4c4c;
+    padding: 0.2rem 0.5rem;
+    border-radius: 5px;
+    width: max-content;
+    margin-top: -2.4rem;
+    position: relative;
+    color: white;
+    font-size: 0.9rem;
+    margin-left: 0.5rem;
+    cursor: pointer;
+}
+
+.edit_picture_text i {
+    margin-right: 0.2rem;
 }
 
 #image_loader {
@@ -1123,6 +1143,89 @@ h2 {
     font-size: 1.2em;
     color: #555;
     cursor: pointer;
+}
+
+.profile_information {
+    display: grid;
+    grid-template-columns: auto 1fr
+}
+
+.delete_account {
+    margin-top: 4rem;
+}
+
+.delete_account_header {
+    color: red;
+    font-size: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid lightgrey;
+    margin-bottom: 2rem;
+}
+
+.delete_account a {
+    margin-top: 2rem;
+    color: red;
+    margin-left: 0;
+}
+
+#users_grid {
+    grid-template-columns: repeat(auto-fit, minmax(10rem, 20rem));
+}
+
+#users_grid div .profile_picture {
+    margin: initial;
+    cursor: initial;
+}
+
+.profile_username {
+    color: black;
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid lightgrey;
+}
+
+.profile_mail {
+    color: black;
+    margin: 1rem 0;
+}
+
+/* Karten */
+
+.maps {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+    grid-auto-flow: row;
+    grid-gap: 1rem;
+    margin: 1rem 2rem;
+}
+
+.map {
+    border-radius: 5px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0 15px 20px rgba(0,0,0, 0.2);
+    min-height: 15rem;
+    margin-bottom: 20px;
+}
+
+.map_name {
+    text-align: center;
+    font-size: 1.5rem;
+    color: black;
+    font-weight: bold;
+    margin: 0.5rem 0 1.5rem 0;
+}
+
+.map_img {
+    width: 100%;
+    border-radius: 5px;
+}
+
+.map_input {
+    width: 100%;
+    height: initial;
+    border-radius: 5px;
+    padding: 1rem 0 0 0;
 }
 
 /*  ====================================

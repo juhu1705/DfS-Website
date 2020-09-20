@@ -35,47 +35,37 @@
                             <h4>Diskussionen:</h4>
                         </div>
 
-                        {% for discussion in discussions %}
-                        <div class="topic-section">
-                            <a href="{{ url_for('discussions.discussion', id=discussion['id']) }}">
-                                <article class="post">
-                                    <header>
-                                        <div>
-                                            <table>
-                                                <tr>
-                                                    <td>
-                                                        <table>
-                                                            <tr>
-                                                                <th>Topic:</th>
-                                                                <th>{{ discussion['title'] }}</th>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>Opened by:</td>
-                                                                <td>{{ discussion['name'] }}</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>Date:</td>
-                                                                <td>{{ discussion['created'] }}</td>
-                                                            </tr>
-                                                        </table>
-                                                    </td>
-                                                    {% if g.user is not none and (discussion['author'] == g.user['id'] or
-                                                    g.user['level'] >= 2) %}
-                                                    <td>
-                                                        <a href="{{ url_for('discussions.delete_discussion', id=discussion['id']) }}"
-                                                           onclick="return confirm('Wollen sie wirklich ihren Kommentar löschen? Er kann nicht wiederhergestellt werden!')"><i
-                                                                class="fas fa-trash"></i></a>
-                                                    </td>
+                        <div id="discussions">
+                            <div class="discussions">
+                                {% for discussion in discussions %}
+                                    <div class="card topic-section {{discussion['title']}} {{discussion['name']}}" href="{{ url_for('discussions.discussion', id=discussion['id']) }}">
+                                        <div class="discussion_topic">{{ discussion['title'] }}</div>
+                                        <div class="discussion_description">{{ discussion['description'] }}</div>
+                                        <div class="discussion_footer">
+                                            <div>
+                                                <div class="discussion_author">Autor: {{ discussion['name'] }}</div>
+                                                {% for comment in comments %}
+                                                    {% if comment['id'] == discussion['id'] %}
+                                                        {% if comment['comments'] == 1 %}
+                                                            <div class="discussion_author">{{ comment['comments'] }} Nachricht</div>
+                                                        {% else %}
+                                                            <div class="discussion_author">{{ comment['comments'] }} Nachrichten</div>
+                                                        {% endif %}
                                                     {% endif %}
-                                                </tr>
-                                            </table>
+                                                {% endfor %}
+                                            </div>
+                                            <div class="open_discussion">
+                                                <a class="btnredirect" href="{{ url_for('discussions.discussion', id=discussion['id']) }}">
+                                                    <div><span>Öffnen</span></div><i class="fas fa-chevron-right"></i>
+                                                </a>
+                                            </div>
                                         </div>
-                                    </header>
-                                </article>
-                            </a>
-                        </div>
+                                        <div class="discussion_date">Erstellt am {{ discussion['created'] }}</div>
+                                    </div>
+                                {% endfor %}
 
-                        {% endfor %}
+                            </div>
+                        </div>
 
 
                         <div class="i-1">

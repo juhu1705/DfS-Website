@@ -1,11 +1,5 @@
 {% extends 'base.html' %}
 
-{% block sidebar %}
-
-{% endblock %}
-
-{% block background %}{{url_for('static', filename='pictures/DfS-StartScreen.JPG')}}{% endblock %}
-
 {% block content %}
 <div id="post-section">
     <div id="header-section">
@@ -32,37 +26,26 @@
     </div>
 
     <div class="scrollable">
-        {% for user in users %}
-        <div class="topic-section {{user['name']}} {{user['email']}}">
-            <a href="{{ url_for('home.visit_profile', id=user['id']) }}">
-                <article class="post">
-                    <header>
-                        <div>
-                            <table>
-                                <tr>
-                                    <td class="profile_picture_container">
-                                        <img class="profile_picture" src="{{ url_for('home.profile_picture', id=user['id']) }}">
-                                    </td>
-                                    <td>
-                                        <table>
-                                            <tr>
-                                                <th class="profile_descriptions">Name:</th>
-                                                <th class="profile_values">{{ user['name'] }}</th>
-                                            </tr>
-                                            <tr>
-                                                <th class="profile_descriptions">E-Mail:</th>
-                                                <th class="profile_values">{{ user['email'] }}</th>
-                                            </tr>
-                                        </table>
-                                    </td>
-                                </tr>
-                            </table>
-                        </div>
-                    </header>
-                </article>
-            </a>
+        <div class="discussions" id="users_grid">
+            {% for user in users %}
+            <div class="card topic-section {{user['name']}} {{user['email']}}" id="users_card" href="{{ url_for('home.visit_profile', id=user['id']) }}">
+                <img class="profile_picture" src="{{ url_for('home.profile_picture', id=user['id']) }}">
+
+                <div class="profile_username">{{ user['name'] }}</div>
+                <div class="profile_mail">E-Mail: {{ user['email'] }}</div>
+
+                <div class="discussion_footer">
+                    <div></div>
+                    <div class="open_discussion">
+                        <a class="btnredirect" href="{{ url_for('home.visit_profile', id=user['id']) }}">
+                            <div><span>Besuchen</span></div><i class="fas fa-chevron-right"></i>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+            {% endfor %}
         </div>
-        {% endfor %}
     </div>
 
 </div>

@@ -22,7 +22,6 @@ ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif', 'webp'}
 def login():
     if request.method == 'POST':
 
-
         try:
             username = request.form['username']
             password = request.form['password']
@@ -33,7 +32,7 @@ def login():
         db = get_db()
         error = None
 
-        user = db.execute('SELECT * FROM user WHERE name = ? OR email = ?', (username, username, )).fetchone()
+        user = db.execute('SELECT * FROM user WHERE name = ? OR email = ?', (username, username,)).fetchone()
 
         if user is None:
             error = 'Der Benutzername existiert nicht.'
@@ -65,7 +64,7 @@ def register():
             return redirect(url_for('home.index'))
         db = get_db()
         error = None
-        user = db.execute('SELECT * FROM user WHERE name = ? or email = ?', (username, mail, )).fetchone()
+        user = db.execute('SELECT * FROM user WHERE name = ? or email = ?', (username, mail,)).fetchone()
 
         if user is not None:
             error = 'Der Benutzername oder die E-Mailaddresse sind bereits in Benutzung.'
@@ -99,7 +98,7 @@ def load_logged_in_user():
     if user_id is None:
         g.user = None
     else:
-        g.user = get_db().execute('SELECT * FROM user WHERE id = ?', (user_id, )).fetchone()
+        g.user = get_db().execute('SELECT * FROM user WHERE id = ?', (user_id,)).fetchone()
 
 
 @bp.route('/logout')
@@ -173,7 +172,7 @@ def reset_password():
         if user is not None:
             token = random_uri_safe_string(64)
 
-            db.execute('UPDATE user SET password_reset_token = ? WHERE id = ?', (token, user['id'], ))
+            db.execute('UPDATE user SET password_reset_token = ? WHERE id = ?', (token, user['id'],))
             db.commit()
             from dfs.emails import send_password_reset_email
 
@@ -197,7 +196,8 @@ def password_reset(token):
 
             if password == check:
                 db = get_db()
-                db.execute('UPDATE user SET pwd_hash = ?, password_reset_token = ?', (generate_password_hash(password), None, ))
+                db.execute('UPDATE user SET pwd_hash = ?, password_reset_token = ?',
+                           (generate_password_hash(password), None,))
                 db.commit()
                 return redirect(url_for('auth.login'))
         return render_template('home/reset_password.html')
@@ -260,8 +260,6 @@ def profile():
             else:
                 flash('Es wurde keine E-Mail angegeben.')
 
-
-
         if error is None:
             if 'visible' in request.form:
                 db.execute('UPDATE user SET visible = ? WHERE id = ?', (1, g.user['id']))
@@ -280,7 +278,7 @@ def profile():
             new_password2 = request.form['new_password2']
 
             error = None
-            user = db.execute('SELECT * FROM user WHERE id=?', (g.user['id'], )).fetchone()
+            user = db.execute('SELECT * FROM user WHERE id=?', (g.user['id'],)).fetchone()
 
             if user is None:
                 error = 'Ihr Benutzerkonto existiert nicht mehr.'
@@ -332,8 +330,8 @@ def profile():
         if update:
             return redirect(url_for('home.index'))
     return render_template('home/profile.html', picture_name=os.path.join(
-                    os.path.join(current_app.instance_path, 'assets\\pictures\\profile'),
-                    str(g.user['id'])))
+        os.path.join(current_app.instance_path, 'assets\\pictures\\profile'),
+        str(g.user['id'])))
 
 
 @bp.route('/profile/delete', methods=('GET', 'POST'))
@@ -343,13 +341,21 @@ def delete_user():
 
     db = get_db()
 
-    db.execute('DELETE FROM discussion WHERE author = ?', (id, ))
+    db.execute('DELETE FROM discussion WHERE author = ?', (id,))
     db.execute('DELETE FROM comment WHERE author = ?', (id,))
     db.execute('DELETE FROM short_stories WHERE author = ?', (id,))
     db.execute('DELETE FROM user_permissions WHERE user_id = ?', (id,))
     db.execute('DELETE FROM time_event WHERE author = ?', (id,))
     db.execute('DELETE FROM user WHERE id = ?', (id,))
     db.commit()
+
+    path = os.path.join(current_app.instance_path, 'assets\\pictures\\profile', str(id), get_filename(id))
+
+    if os.path.exists(path):
+        path_extended = os.path.join(current_app.instance_path, os.path.join('assets\\pictures\\profile', str(id),
+                                                                             get_filename(id)))
+        print(path_extended)
+        os.remove(path_extended)
 
     return redirect(url_for('auth.logout'))
 

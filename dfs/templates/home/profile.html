@@ -4,92 +4,91 @@
 
 {% endblock %}
 
-{% block sidebar %}
-{% if g.user is not none %}
-<li class="topbar"><a href="{{ url_for('auth.delete_user') }}"
-       onclick="return confirm('Wollen sie wirklich ihren Account löschen? Er kann nicht wiederhergestellt werden! Alle von ihnen erstellte Daten werden gelöscht! Erstellte Charactere bleiben dennoch erhalten!')"><i
-        class="fas fa-trash"></i><span>Löschen</span></a></li>
-{% endif %}
-{% endblock %}
-
-
 {% block content %}
 <div id="post-section">
     <div class="container">
         <div class="login-content">
             <form method="post" enctype="multipart/form-data" autocomplete="off">
-                <img id="profile_picture" class="profile_picture" src="{{ url_for('auth.profile_picture') }}" onclick="triggerPictureChoose()">
-                <input type="file" name="image_loader" id="image_loader" onchange="displayImage(this)">
                 <h2>Profil</h2>
+
                 <input type="hidden" name="action" value="edit-profile">
+                <div class="profile_information">
+                    <div class="picture_change">
+                        <img id="profile_picture" class="profile_picture" src="{{ url_for('auth.profile_picture') }}" onclick="triggerPictureChoose()">
+                        <input type="file" name="image_loader" id="image_loader" onchange="displayImage(this)">
+                        <div class="edit_picture_text" onclick="triggerPictureChoose()"><div><i class="fas fa-pencil-alt"></i>Edit</div></div>
+                    </div>
+                    <div>
+                        <div class="input-div name">
+                            <div class="i">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <div class="div">
+                                <h5>Benutzername</h5>
+                                <input class="input" name="username" id="username" maxlength="25" value="{{ g.user['name'] }}" required>
+                            </div>
+                        </div>
+                        <div class="input-div mail">
+                            <div class="i">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div class="div">
+                                <h5>E-Mail</h5>
+                                <input class="input" type="email" name="mail" id="mail" maxlength="25" value="{{ g.user['email'] }}" required>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-                    <div class="input-div name">
-                        <div class="i">
-                            <i class="fas fa-user"></i>
-                        </div>
-                        <div class="div">
-                            <h5>Benutzername</h5>
-                            <input class="input" name="username" id="username" maxlength="25" value="{{ g.user['name'] }}" required>
-                        </div>
+                <div class="input-div pass">
+                    <div class="i">
+                        <i class="fas fa-lock"></i>
                     </div>
-                    <div class="input-div mail">
-                        <div class="i">
-                            <i class="fas fa-envelope"></i>
-                        </div>
-                        <div class="div">
-                            <h5>E-Mail</h5>
-                            <input class="input" type="email" name="mail" id="mail" maxlength="25" value="{{ g.user['email'] }}" required>
-                        </div>
+                    <div class="div">
+                        <h5>Passwort</h5>
+                        <input class="input" type="password" name="password" id="password" required>
                     </div>
-                    <div class="input-div pass">
-                        <div class="i">
-                            <i class="fas fa-lock"></i>
-                        </div>
-                        <div class="div">
-                            <h5>Passwort</h5>
-                            <input class="input" type="password" name="password" id="password" required>
-                        </div>
+                </div>
+                <div class="input-div new_pass">
+                    <div class="i">
+                        <i class="fas fa-lock"></i>
                     </div>
-                    <div class="input-div new_pass">
-                        <div class="i">
-                            <i class="fas fa-lock"></i>
-                        </div>
-                        <div class="div">
-                            <h5>Neues Passwort</h5>
-                            <input class="input" type="password" name="new_password" id="new_password">
-                        </div>
+                    <div class="div">
+                        <h5>Neues Passwort</h5>
+                        <input class="input" type="password" name="new_password" id="new_password">
                     </div>
-                    <div class="input-div new_pass_2">
-                        <div class="i">
-                            <i class="fas fa-lock"></i>
-                        </div>
-                        <div class="div">
-                            <h5>Passwort wiederholen</h5>
-                            <input class="input" type="password" name="new_password2" id="new_password2">
-                        </div>
+                </div>
+                <div class="input-div new_pass_2">
+                    <div class="i">
+                        <i class="fas fa-lock"></i>
                     </div>
-                    <div class="input-div visibility">
-                        <div class="i">
-                            {% if g.user['visible'] == 0 %}
-                            <i class="far fa-eye-slash"></i>
-                            {% else %}
-                            <i class="far fa-eye"></i>
-                            {% endif %}
-                        </div>
-                        <div class="div">
-                            <h5>Visible</h5>
-                            {% if g.user['visible'] == 0 %}
-                            <label for="visible" class="visible-text">Ihr Profil ist unsichtbar</label>
-                            <input class="input visible-checkbox" type="checkbox" name="visible" id="visible" checked>
-                            {% else %}
-                            <label for="visible" class="visible-text">Ihr Profil ist sichtbar</label>
-                            <input class="input visible-checkbox" type="checkbox" name="visible" id="visible">
-                            {% endif %}
+                    <div class="div">
+                        <h5>Neues Passwort wiederholen</h5>
+                        <input class="input" type="password" name="new_password2" id="new_password2">
+                    </div>
+                </div>
+                <div class="input-div visibility">
+                    <div class="i">
+                        {% if g.user['visible'] == 0 %}
+                        <i class="far fa-eye-slash"></i>
+                        {% else %}
+                        <i class="far fa-eye"></i>
+                        {% endif %}
+                    </div>
+                    <div class="div">
+                        <h5>Visible</h5>
+                        {% if g.user['visible'] == 0 %}
+                        <label for="visible" class="visible-text">Ihr Profil ist unsichtbar</label>
+                        <input class="input visible-checkbox" type="checkbox" name="visible" id="visible" checked>
+                        {% else %}
+                        <label for="visible" class="visible-text">Ihr Profil ist sichtbar</label>
+                        <input class="input visible-checkbox" type="checkbox" name="visible" id="visible">
+                        {% endif %}
 
 
 
-                        </div>
                     </div>
+                </div>
 
 
                 <button id="btnconfirm" type="submit">
@@ -97,6 +96,14 @@
                 </button>
 
             </form>
+
+            <div class="delete_account">
+                <h3 class="delete_account_header">Account Löschen</h3>
+                <div class="delete_account_warn_text">Wenn der Account gelöscht wird, können seine Daten nicht wiederhergestellt werden!</div>
+                <a class="btnredirect" href="{{ url_for('auth.delete_user') }}" onclick="return confirm('Wollen sie wirklich ihren Account löschen? Er kann nicht wiederhergestellt werden! Alle von ihnen erstellte Daten werden gelöscht! Erstellte Charactere bleiben dennoch erhalten!')">
+                    <div><span>Löschen</span></div><i class="fas fa-chevron-right"></i>
+                </a>
+            </div>
         </div>
     </div>
 </div>
