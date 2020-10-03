@@ -4,6 +4,7 @@ import os
 from flask import (
     Blueprint, flash, g, redirect, render_template, request, session, url_for, current_app
 )
+from werkzeug.exceptions import abort
 from werkzeug.security import check_password_hash, generate_password_hash
 from werkzeug.utils import secure_filename
 
@@ -366,3 +367,19 @@ def delete_user():
 @login_required
 def profile_picture():
     return home.profile_picture(g.user['id'])
+
+
+@bp.route('/profile/<int:id>/set-role/<int:status>')
+@admin_required
+def set_status(id, status):
+    db = get_db()
+
+    user = db.execute('SELECT * FROM user WHERE id = ?', (id,)).fetchone()
+    if not user:
+        abort(400)
+        return
+
+    db.execute('UPDATE user SET level=? WHERE id=?', (status, id))
+    db.commit()
+
+    return redirect(url_for('home.visit_profile', id=id))

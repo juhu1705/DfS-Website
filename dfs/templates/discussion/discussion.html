@@ -9,7 +9,9 @@
         <div id="container">
             <div class="login-content discussion_topbar">
                 <div class="topic" id="discussions_title">Diskussionen</div>
+                {% if g.user is not none %}
                 <a class="btnredirect" href="{{url_for('discussions.open_discussion')}}"><div><span>Neu</span></div><i class="fas fa-plus"></i></a>
+                {% endif %}
             </div>
 
         </div>

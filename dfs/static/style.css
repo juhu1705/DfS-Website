@@ -64,7 +64,7 @@ body {
   top: 0;
   left: 0;
   background-color: #4c4c4c;
-  border-bottom: 2px solid #4d4d4d;
+  border-bottom: 2px solid #2b2b2b;
   overflow-y: hidden;
   white-space: nowrap;
 }
@@ -146,7 +146,7 @@ body {
 
 .sidebar_background {
     color: #063146;
-    background: #063146;
+    background: transparent;
     align-items: center;
     margin-right: 1rem;
 }
@@ -165,7 +165,7 @@ body {
     left: -18em;
     width: 18em;
     height: 100%;
-    background: #042331;
+    background: #4c4c4c;
     transition: all .5s ease;
 }
 
@@ -176,14 +176,12 @@ body {
     color: white;
     text-align: center;
     line-height: 2.5em;
-    background: #063146;
-    user-selection: none;
 }
 
 #sidebar_header_grid {
     display: grid;
     grid-template-columns: 1fr auto;
-    background: #063146;
+    background: #2b2b2b;
 }
 
 /* Themenüberschriften */
@@ -197,7 +195,7 @@ body {
     padding-left: 2em;
     box-sizing: border-box;
     border-top: 1px solid rgba(255, 255, 255, .1);
-    border-bottom: 1px solid black;
+    border-bottom: 1px solid #2b2b2b;
     transition: .4s;
 }
 
@@ -220,10 +218,8 @@ body {
 label #btn {
     position: absolute;
     cursor: pointer;
-    background: #042331;
     border-radius: 6px;
     transition: all .5s;
-    
     left: 0.60rem;
     top: 0.60rem;
     font-size: 1rem;
@@ -236,12 +232,12 @@ label #cancel {
     cursor: pointer;
     z-index: 1111;
 
-    top: 0.6em;
+    top: 0.5em;
     font-size: 2em;
-    color: #063146;
+    color: #2b2b2b;
 
-    background: #0a5275;
-    border-radius: 3px;
+    background: white;
+    border-radius: 5px;
     padding: 4px 9px;
 }
 
@@ -1353,6 +1349,183 @@ h2 {
     padding: 2rem;
 }
 
+/* Spezies Auswahlfeld */
+
+.species_content {
+    transition: all 3s linear;
+}
+
+.species_content {
+  -webkit-animation-name: fade;
+  -webkit-animation-duration: 2s;
+  animation-name: fade;
+  animation-duration: 2s;
+}
+
+.topic-section.species {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    padding: 1rem 0.5rem 0 0.5rem;
+    margin: 1rem 2rem;
+    border-bottom: 1px solid lightgrey;
+    cursor: pointer;
+}
+
+.topic-section.species h2 {
+    border-bottom: initial;
+    margin: 0;
+}
+
+.topic-section.species i {
+    text-align: center;
+    width: 4rem;
+    margin-top: 0.5rem;
+}
+
+.characters_name {
+    margin-left: 2.1rem;
+    color: #4b4b4b;
+    transition: all 0.5s ease-in-out;
+    font-size: 1.5rem;
+}
+
+.characters_name:hover, .characters_name:focus {
+    color: #2b2b2b;
+}
+
+.characters_name i {
+    margin-right: 1rem;
+}
+
+.select-box {
+    display:flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.select-box .option-container {
+    z-index: 5;
+    background: #2f3640;
+    color: #f5f6fa;
+    max-height: 0;
+    width: 100%;
+    opacity: 0;
+    transition: all 0.5s;
+    border-radius: 0 0 8px 8px;
+    overflow: hidden;
+    order: 1;
+}
+
+.selected {
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    border: none;
+    outline: none;
+    background: none;
+    padding: 0.5em 0.7em;
+    font-size: 1.2em;
+    color: #555;
+    text-align: left;
+
+    position: relative;
+
+    order: 0;
+}
+
+.fas {
+    transition: all 0.5s;
+}
+
+.select-box .option-container::-webkit-scrollbar {
+    width: 8px;
+    background: #555;
+    border-radius: 0 0 8px 0;
+}
+
+.select-box .option-container::-webkit-scrollbar-thumb {
+    width: 8px;
+    background: #262626;
+    border-radius: 0 0 8px 0;
+}
+
+.select-box .option-container.active {
+    max-height: 11em;
+    opacity: 1;
+    overflow-y: scroll;
+}
+
+.select-box .option, .selected {
+    padding: 12px 24px;
+    cursor: pointer;
+}
+
+.arrow {
+    cursor: pointer;
+}
+
+.select-box .option:hover {
+    background: #414b57;
+}
+
+.select-box .option .radio {
+    display: none;
+}
+
+.select-box label {
+    cursor: pointer;
+}
+
+.select-box .option-container.active ~ .search-box input {
+    z-index: 5;
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.select-box .option-container.active ~ .search-box {
+    height: 3rem;
+}
+
+.search-box {
+    height: 0;
+    transition: all 0.5s;
+}
+
+.search-box input {
+    z-index: -1;
+    width: 100%;
+    padding: 12px 16px;
+    position: relative;
+    border-radius: 8px 8px 0 0;
+    border: 8px solid #2f3640;
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.5s;
+}
+
+.search-box input:focus {
+    outline: none;
+}
+
+.selector-line {
+    position: relative;
+    display: grid;
+    grid-template-columns: 7% 90% 3%;
+    margin: 25px 0;
+    padding: 5px 0;
+    border-bottom: 2px solid #d9d9d9;
+}
+
+.line4 {
+    position: relative;
+    display: grid;
+    grid-template-columns: 7% 40% 3% 50%;
+    margin: 25px 0;
+    padding: 5px 0;
+    border-bottom: 2px solid #d9d9d9;
+}
+
 /*  ====================================
     Anpassungen für kleinere Bildschirme
     ====================================  */
@@ -1403,6 +1576,10 @@ h2 {
 
   .discussion_topbar {
     grid-template-columns: 1fr;
+  }
+
+  #discussions_title {
+    margin-bottom: 1rem;
   }
 
   .footer {

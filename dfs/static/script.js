@@ -170,7 +170,17 @@ function onChangeViewSpecies() {
     element = document.getElementsByClassName(this.id)[0];
     if(element.style.display == "none") {
         element.style.display = "block";
+        e1 = element.parentNode.querySelector(".fa-angle-down");
+        if(e1 !== null) {
+            e1.classList.toggle("fa-angle-up");
+            e1.classList.remove("fa-angle-down");
+        }
     } else {
+        e1 = element.parentNode.querySelector(".fa-angle-up");
+        if(e1 !== null) {
+            e1.classList.toggle("fa-angle-down");
+            e1.classList.remove("fa-angle-up");
+        }
         element.style.display = "none";
     }
 }

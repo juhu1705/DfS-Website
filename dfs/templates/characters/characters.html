@@ -1,18 +1,17 @@
 {% extends 'base.html' %}
 
-{% block sidebar %}
-{% if g.user is not none and g.user['level'] > 1 %}
-<li class="topbar"><a href="{{url_for('characters.create')}}"><i class="fas fa-folder-plus"></i></a></li>
-<li class="topbar"><a href="{{url_for('characters.tags')}}"><i class="fas fa-tags"></i></a></li>
-{% endif %}
-{% endblock %}
-
 {% block content %}
 <div id="post-section">
     <div id="header-section">
         <div id="container">
-            <div class="login-content">
-                <h2 class="title"><a href="{{url_for('characters.create')}}">Charaktere</a></h2>
+            <div class="login-content discussion_topbar">
+                <div class="topic" id="discussions_title">Charaktere</div>
+                {% if g.user is not none and g.user['level'] > 1 %}
+                <div class="function_holder" id="without_margin_right">
+                    <a class="btnredirect" href="{{url_for('characters.create')}}"><div><span>Neu</span></div><i class="fas fa-plus"></i></a>
+                    <a class="btnredirect" href="{{url_for('characters.tags')}}"><div><span>Merkmale</span></div><i class="fas fa-tags"></i></a>
+                </div>
+                {% endif %}
             </div>
         </div>
     </div>
@@ -33,235 +32,79 @@
 
     <div class="scrollable">
         <div class="topic-section species" id="enfali">
-            <table>
-                <tr>
-                    <th>Enfali</th>
-                </tr>
-            </table>
+            <h2>Enfali</h2>
+            <i class="fas fa-angle-up" aria-hidden="true"></i>
         </div>
         <div class="species_content enfali">
             {% for enf in enfali %}
             <div class="topic-section {{enf['name']}} {{enf['family']}}">
-                <a href="{{url_for('characters.character', id=enf['id'])}}">
-                    <article class="post">
-                        <header>
-                            <div>
-                                <table>
-                                    <tr>
-                                        <td>
-                                            <table>
-                                                <tr>
-                                                    <td width="30%">Name:</td>
-                                                    <td width="70%">{{ enf['name'] }}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td width="30%">Familie:</td>
-                                                    <td width="70%">{{ enf['family'] }}</td>
-                                                </tr>
-
-                                            </table>
-                                        </td>
-
-                                    </tr>
-                                </table>
-                            </div>
-                        </header>
-                    </article>
+                <a class="characters_name" href="{{url_for('characters.character', id=enf['id'])}}">
+                    <i class="fas fa-caret-right"></i>{{ enf['name'] }} {{ enf['family'] }}
                 </a>
             </div>
             {% endfor %}
         </div>
         <div class="topic-section species" id="nithriln">
-            <table>
-                <tr>
-                    <th>Nithriln</th>
-                </tr>
-            </table>
+            <h2>Nithriln</h2>
+            <i class="fas fa-angle-up" aria-hidden="true"></i>
         </div>
         <div class="species_content nithriln">
             {% for nith in nithriln %}
             <div class="topic-section {{nith['name']}} {{nith['family']}}">
-                <a href="{{url_for('characters.character', id=nith['id'])}}">
-                    <article class="post">
-                        <header>
-                            <div>
-                                <table>
-                                    <tr>
-                                        <td>
-                                            <table>
-                                                <tr>
-                                                    <td width="30%">Name:</td>
-                                                    <td width="70%">{{ nith['name'] }}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td width="30%">Familie:</td>
-                                                    <td width="70%">{{ nith['family'] }}</td>
-                                                </tr>
-
-                                            </table>
-                                        </td>
-
-                                    </tr>
-                                </table>
-                            </div>
-                        </header>
-                    </article>
+                <a class="characters_name" href="{{url_for('characters.character', id=nith['id'])}}">
+                    <i class="fas fa-caret-right"></i>{{ nith['name'] }} {{ nith['family'] }}
                 </a>
             </div>
             {% endfor %}
         </div>
         <div class="topic-section species" id="drachen">
-            <table>
-                <tr>
-                    <th>Drachen</th>
-                </tr>
-            </table>
+            <h2>Drachen</h2>
+            <i class="fas fa-angle-up" aria-hidden="true"></i>
         </div>
         <div class="species_content drachen">
             {% for drache in drachen %}
             <div class="topic-section {{drache['name']}} {{drache['family']}}">
-                <a href="{{url_for('characters.character', id=drache['id'])}}">
-                    <article class="post">
-                        <header>
-                            <div>
-                                <table>
-                                    <tr>
-                                        <td>
-                                            <table>
-                                                <tr>
-                                                    <td width="30%">Name:</td>
-                                                    <td width="70%">{{ drache['name'] }}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td width="30%">Familie:</td>
-                                                    <td width="70%">{{ drache['family'] }}</td>
-                                                </tr>
-
-                                            </table>
-                                        </td>
-
-                                    </tr>
-                                </table>
-                            </div>
-                        </header>
-                    </article>
+                <a class="characters_name" href="{{url_for('characters.character', id=drache['id'])}}">
+                    <i class="fas fa-caret-right"></i>{{ drache['name'] }} {{ drache['family'] }}
                 </a>
             </div>
             {% endfor %}
         </div>
         <div class="topic-section species"  id="elfen">
-            <table>
-                <tr>
-                    <th>Elfen</th>
-                </tr>
-            </table>
+            <h2>Elfen</h2>
+            <i class="fas fa-angle-up" aria-hidden="true"></i>
         </div>
         <div class="species_content elfen">
             {% for elf in elfen %}
             <div class="topic-section {{elf['name']}} {{elf['family']}}">
-                <a href="{{url_for('characters.character', id=elf['id'])}}">
-                    <article class="post">
-                        <header>
-                            <div>
-                                <table>
-                                    <tr>
-                                        <td>
-                                            <table>
-                                                <tr>
-                                                    <td width="30%">Name:</td>
-                                                    <td width="70%">{{ elf['name'] }}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td width="30%">Familie:</td>
-                                                    <td width="70%">{{ elf['family'] }}</td>
-                                                </tr>
-
-                                            </table>
-                                        </td>
-
-                                    </tr>
-                                </table>
-                            </div>
-                        </header>
-                    </article>
+                <a class="characters_name" href="{{url_for('characters.character', id=elf['id'])}}">
+                    <i class="fas fa-caret-right"></i>{{ elf['name'] }} {{ elf['family'] }}
                 </a>
             </div>
             {% endfor %}
         </div>
         <div class="topic-section species"  id="menschen">
-            <table>
-                <tr>
-                    <th>Menschen</th>
-                </tr>
-            </table>
+            <h2>Menschen</h2>
+            <i class="fas fa-angle-up" aria-hidden="true"></i>
         </div>
         <div class="species_content menschen">
             {% for mensch in menschen %}
             <div class="topic-section {{mensch['name']}} {{mensch['family']}}">
-                <a href="{{url_for('characters.character', id=mensch['id'])}}">
-                    <article class="post">
-                        <header>
-                            <div>
-                                <table>
-                                    <tr>
-                                        <td>
-                                            <table>
-                                                <tr>
-                                                    <td width="30%">Name:</td>
-                                                    <td width="70%">{{ mensch['name'] }}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td width="30%">Familie:</td>
-                                                    <td width="70%">{{ mensch['family'] }}</td>
-                                                </tr>
-
-                                            </table>
-                                        </td>
-
-                                    </tr>
-                                </table>
-                            </div>
-                        </header>
-                    </article>
+                <a class="characters_name" href="{{url_for('characters.character', id=mensch['id'])}}">
+                    <i class="fas fa-caret-right"></i>{{ mensch['name'] }} {{ mensch['family'] }}
                 </a>
             </div>
             {% endfor %}
         </div>
         <div class="topic-section species" id="zwerge">
-            <table>
-                <tr>
-                    <th>Zwerge</th>
-                </tr>
-            </table>
+            <h2>Zwerge</h2>
+            <i class="fas fa-angle-up" aria-hidden="true"></i>
         </div>
         <div class="species_content zwerge">
             {% for zwerg in zwerge %}
             <div class="topic-section {{zwerg['name']}} {{zwerg['family']}}">
-                <a href="{{url_for('characters.character', id=zwerg['id'])}}">
-                    <article class="post">
-                        <header>
-                            <div>
-                                <table>
-                                    <tr>
-                                        <td>
-                                            <table>
-                                                <tr>
-                                                    <td width="30%">Name:</td>
-                                                    <td width="70%">{{ zwerg['name'] }}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td width="30%">Familie:</td>
-                                                    <td width="70%">{{ zwerg['family'] }}</td>
-                                                </tr>
-
-                                            </table>
-                                        </td>
-
-                                    </tr>
-                                </table>
-                            </div>
-                        </header>
-                    </article>
+                <a class="characters_name" href="{{url_for('characters.character', id=zwerg['id'])}}">
+                    <i class="fas fa-caret-right"></i>{{ zwerg['name'] }} {{ zwerg['family'] }}
                 </a>
             </div>
             {% endfor %}
