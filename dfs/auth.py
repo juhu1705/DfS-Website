@@ -267,6 +267,8 @@ def profile():
             else:
                 db.execute('UPDATE user SET visible = ? WHERE id = ?', (0, g.user['id']))
                 print('Profile disabled')
+            if 'about_you' in request.form:
+                db.execute('UPDATE user SET about_you = ? WHERE id = ?', (request.form['about_you'], g.user['id']))
             update = True
 
         if error is None and user['name'] != username:

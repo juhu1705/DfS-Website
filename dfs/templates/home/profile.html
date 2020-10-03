@@ -40,6 +40,22 @@
                     </div>
                 </div>
 
+                <div class="input-div text-area">
+                    <div class="i">
+                        <i class="far fa-comment-dots"></i>
+                    </div>
+
+                    <div class="div">
+                        <h5>Über dich</h5>
+                        {% if g.user['about_you'] == null %}
+                        <textarea class="input" name="about_you" id="about_you" rows="4"></textarea>
+                        {% else %}
+                        <textarea class="input" name="about_you" id="about_you" rows="4">{{ g.user['about_you'] }}</textarea>
+                        {% endif %}
+                    </div>
+
+                </div>
+
                 <div class="input-div pass">
                     <div class="i">
                         <i class="fas fa-lock"></i>

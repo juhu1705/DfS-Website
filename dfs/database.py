@@ -43,7 +43,6 @@ def init_db_command():
 @with_appcontext
 def add_teacher(name, admin=2):
     user = get_db().execute('SELECT * FROM user WHERE name = ?', (name, )).fetchone()
-
     if not user:
         click.echo('Was, das wollen sie wirklich tun? Einen unschuldigen Benutzer verdoppeln. NIEMALS!')
         return 1

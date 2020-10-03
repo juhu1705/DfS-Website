@@ -100,7 +100,7 @@ body {
     align-items: center;
     color: #4c4c4c;
     display: grid;
-    grid-template-columns: 2.5rem 1fr;
+    grid-template-columns: auto 1fr;
     border-radius: 5px;
     height: 100%;
     padding-right: 0.5rem;
@@ -148,6 +148,7 @@ body {
     color: #063146;
     background: #063146;
     align-items: center;
+    margin-right: 1rem;
 }
 
 
@@ -181,7 +182,7 @@ body {
 
 #sidebar_header_grid {
     display: grid;
-    grid-template-columns: 80% 20%;
+    grid-template-columns: 1fr auto;
     background: #063146;
 }
 
@@ -223,9 +224,9 @@ label #btn {
     border-radius: 6px;
     transition: all .5s;
     
-    left: 0.60em;
-    top: 0.60em;
-    font-size: 1em;
+    left: 0.60rem;
+    top: 0.60rem;
+    font-size: 1rem;
     color: white;
     padding: 3px 6px;
 }
@@ -507,7 +508,7 @@ label #cancel {
 
 #books, .discussions {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(20rem, 30rem));
   grid-auto-flow: row;
   grid-gap: 1rem;
   margin: 1rem 2rem;
@@ -977,6 +978,7 @@ h5 {
 .input-div > div > .input,
 .input-div > div > .input_styled {
     position: absolute;
+    font-family: 'Lato', sans-serif;
     width: 100%;
     height: 100%;
     top: 0;
@@ -1181,12 +1183,112 @@ h2 {
     color: black;
     font-size: 1.5rem;
     font-weight: bold;
+    padding-bottom: 1rem;
     margin-bottom: 1rem;
     border-bottom: 1px solid lightgrey;
 }
 
 .profile_mail {
     color: black;
+    margin: 1rem 0;
+}
+
+.profile_splitter {
+    display: flex;
+    grid-direction: row;
+}
+
+#account_picture {
+    width: 100%;
+    height: auto;
+    padding: 0;
+    cursor: initial;
+}
+
+.username {
+    text-align: center;
+    padding-top: 2rem;
+    padding-bottom: 0.75rem;
+}
+
+.mail_name {
+    text-align: center;
+    padding-top: 1rem;
+    font-size: 1.25rem;
+    font-weight: bold;
+}
+
+.mail_name a {
+    color: #7c7c7c;
+    transition: all 0.5s ease-in-out;
+}
+
+.mail_name a:hover, .mail_name a:focus {
+    color: #343435;
+}
+
+.mail_name i {
+    padding-right: 1rem;
+}
+
+.about_user {
+    padding-top: 1rem;
+    color: black;
+    font-size: 1.125rem;
+    font-style: italic;
+    padding-bottom: 1rem;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid lightgrey;
+}
+
+.about_user div {
+    text-align: center;
+    margin: auto;
+    max-width: 20rem;
+}
+
+.nav-bar {
+    display: flex;
+    grid-direction: row;
+    border-bottom: 2px solid lightgrey;
+}
+
+.tab {
+    padding: 1rem 2rem;
+    color: grey;
+    cursor: pointer;
+    font-weight: bold;
+    transition: .4s ease-out;
+    outline: 1px dotted transparent;
+    border-bottom: 2px solid rgba(209,213,218,0);
+}
+
+.tab:hover, .tab:focus {
+    border-bottom-color: lightgrey;
+}
+
+.tab.focused {
+    color: black;
+    border-bottom-color: orange;
+}
+
+.tab i {
+    padding-right: 1rem;
+}
+
+.list-information {
+    padding-left: 2rem;
+    width: 100%;
+}
+
+.tab-content {
+    display: none;
+    overflow: hidden;
+}
+
+.tab-content.shown {
+    display: grid;
+    overflow: shown;
     margin: 1rem 0;
 }
 
@@ -1228,15 +1330,34 @@ h2 {
     padding: 1rem 0 0 0;
 }
 
+.topbar_mobile {
+    display: none;
+}
+
+.license {
+    padding-left: 2rem;
+    margin-top: 1rem;
+}
+
+.license .paragraph {
+    padding-top: 1rem;
+}
+
+.license-topic {
+    font-weight: bold;
+    font-size: 1.12rem;
+    margin-bottom: 0.5rem;
+}
+
+.contact {
+    padding: 2rem;
+}
+
 /*  ====================================
     Anpassungen für kleinere Bildschirme
     ====================================  */
 
-@media only screen and (max-device-width: 35em) {
-
-  body {
-    font-size: 1.5rem;
-  }
+@media only screen and (max-width: 70em) {
 
   h1 {
     display: none;
@@ -1262,8 +1383,61 @@ h2 {
     margin-top: 2em;
   }
 
-  .sidebar header {
-      margin-right: 25%;
-      text-align: right;
+  .profile_splitter {
+      flex-direction: column;
+  }
+
+  .list-information {
+    padding-left: 0;
+  }
+
+  .tab {
+    font-size: 0.75rem;
+    display: inherit;
+    padding: 2rem 1rem 1rem;
+  }
+
+  .tab i {
+    display: none;
+  }
+
+  .discussion_topbar {
+    grid-template-columns: 1fr;
+  }
+
+  .footer {
+    grid-template-columns: 1fr;
+  }
+
+  .discussions, #books {
+    grid-template-columns: 1fr;
+  }
+
+  .topbar_mobile {
+    display: initial;
+  }
+
+  .topbar {
+    display: none;
+  }
+
+  label #btn {
+    font-size: 3rem;
+  }
+
+  .header {
+    height: 4.5rem;
+  }
+
+  #page main {
+    margin-top: 4.5rem;
+  }
+
+  .sidebar .topics-right a {
+    font-size: 2rem;
+  }
+
+  .input-div {
+    font-size: 1.5rem;
   }
 }

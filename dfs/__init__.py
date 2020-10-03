@@ -40,4 +40,7 @@ def create_app(test_config=None):
     from . import error_handling
     app.register_blueprint(error_handling.bp)
 
+    from . import documents
+    app.register_blueprint(documents.bp)
+
     return app

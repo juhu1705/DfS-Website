@@ -4,219 +4,73 @@
 
 {% endblock %}
 
-{% block sidebar %}
-{% if g.user is not none and g.user['level'] >= 2 %}
-<li class="topbar"><a href="{{ url_for('home.delete_user', id=user['id']) }}"><i class="fas fa-trash"></i></a></li></a></li>
-{% endif %}
-{% endblock %}
-
 {% block content %}
 <div id="post-section">
     <div class="container">
         <div class="login-content">
-            <div>
+            <div class="profile_splitter">
                 <div>
-                    <img id="profile_picture" class="profile_picture"
+                    <img id="account_picture" class="profile_picture"
                          src="{{ url_for('home.profile_picture', id=user['id']) }}">
-                    <h2>Profil - {{user['name']}}</h2>
+                    <h2 class="username">{{user['name']}}</h2>
+                    {% if user['about_you'] != null and user['about_you'] != '' %}
+                    <div class="about_user"><div>{{ user['about_you'] }}</div></div>
+                    {% endif %}
+                    <div class="mail_name"><i class="fas fa-envelope"></i>E-Mail: <a href="mailto:{{user['email']}}?subject=DfS Kontaktaufnahme">{{ user['email'] }}</a></div>
+                    {% if g.user is not none and g.user['level'] >= 2 %}
+                    <div class="delete_account">
+                        <h3 class="delete_account_header">Nutzer kicken</h3>
+                        <div class="delete_account_warn_text">Wenn der Account gelöscht wird, können seine Daten nicht wiederhergestellt werden!</div>
+                        <a class="btnredirect" href="{{ url_for('home.delete_user', id=user['id']) }}" onclick="return confirm('Wollen sie wirklich diesen Account wirklich löschen? Er kann nicht wiederhergestellt werden! Alle von ihm erstellte Daten werden gelöscht! Erstellte Charactere bleiben dennoch erhalten!')">
+                            <div><span>Kicken</span></div><i class="fas fa-chevron-right"></i>
+                        </a>
+                    </div>
+
+                    {% endif %}
                 </div>
                 <div class="list-information">
                     <div class="scrollable">
-                        <div class="i-1">
-                            <i class="fas fa-envelope"></i>
-                        </div>
-                        <div class="div">
-                            <h4>E-Mail: {{ user['email'] }}</h4>
-                        </div>
-                        <div class="i-1">
-                            <i class="far fa-comment-dots"></i>
-                        </div>
-                        <div class="div">
-                            <h4>Diskussionen:</h4>
+
+                        <div class="nav-bar">
+                            <div class="tab focused" id="tab-1"><i class="far fa-comment-dots"></i>Diskussionen</div>
+                            <div class="tab" id="tab-2"><i class="fas fa-bookmark"></i>Kurzgeschichten</div>
+                            <div class="tab" id="tab-3"><i class="fas fa-palette"></i>Fanart</div>
+                            <div class="tab" id="tab-4"><i class="fas fa-female"></i>Charaktere</div>
                         </div>
 
-                        <div id="discussions">
-                            <div class="discussions">
-                                {% for discussion in discussions %}
-                                    <div class="card topic-section {{discussion['title']}} {{discussion['name']}}" href="{{ url_for('discussions.discussion', id=discussion['id']) }}">
-                                        <div class="discussion_topic">{{ discussion['title'] }}</div>
-                                        <div class="discussion_description">{{ discussion['description'] }}</div>
-                                        <div class="discussion_footer">
-                                            <div>
-                                                <div class="discussion_author">Autor: {{ discussion['name'] }}</div>
-                                                {% for comment in comments %}
-                                                    {% if comment['id'] == discussion['id'] %}
-                                                        {% if comment['comments'] == 1 %}
-                                                            <div class="discussion_author">{{ comment['comments'] }} Nachricht</div>
-                                                        {% else %}
-                                                            <div class="discussion_author">{{ comment['comments'] }} Nachrichten</div>
-                                                        {% endif %}
+
+
+
+                        <div class="discussions tab-content tab-1 shown">
+                            {% for discussion in discussions %}
+                                <div class="card topic-section {{discussion['title']}} {{discussion['name']}}" href="{{ url_for('discussions.discussion', id=discussion['id']) }}">
+                                    <div class="discussion_topic">{{ discussion['title'] }}</div>
+                                    <div class="discussion_description">{{ discussion['description'] }}</div>
+                                    <div class="discussion_footer">
+                                        <div>
+                                            <div class="discussion_author">Autor: {{ discussion['name'] }}</div>
+                                            {% for comment in comments %}
+                                                {% if comment['id'] == discussion['id'] %}
+                                                    {% if comment['comments'] == 1 %}
+                                                        <div class="discussion_author">{{ comment['comments'] }} Nachricht</div>
+                                                    {% else %}
+                                                        <div class="discussion_author">{{ comment['comments'] }} Nachrichten</div>
                                                     {% endif %}
-                                                {% endfor %}
-                                            </div>
-                                            <div class="open_discussion">
-                                                <a class="btnredirect" href="{{ url_for('discussions.discussion', id=discussion['id']) }}">
-                                                    <div><span>Öffnen</span></div><i class="fas fa-chevron-right"></i>
-                                                </a>
-                                            </div>
+                                                {% endif %}
+                                            {% endfor %}
                                         </div>
-                                        <div class="discussion_date">Erstellt am {{ discussion['created'] }}</div>
+                                        <div class="open_discussion">
+                                            <a class="btnredirect" href="{{ url_for('discussions.discussion', id=discussion['id']) }}">
+                                                <div><span>Öffnen</span></div><i class="fas fa-chevron-right"></i>
+                                            </a>
+                                        </div>
                                     </div>
-                                {% endfor %}
+                                    <div class="discussion_date">Erstellt am {{ discussion['created'] }}</div>
+                                </div>
+                            {% endfor %}
 
-                            </div>
                         </div>
 
-
-                        <div class="i-1">
-                            <i class="fas fa-bookmark"></i>
-                        </div>
-                        <div class="div">
-                            <h4>Kurzgeschichten:</h4>
-                        </div>
-
-                        {% for short_story in short_stories %}
-
-                        <div class="topic-section">
-                            <a href="{{ url_for('discussions.discussion', id=discussion['id']) }}">
-                                <article class="post">
-                                    <header>
-                                        <div>
-                                            <table>
-                                                <tr>
-                                                    <td>
-                                                        <table>
-                                                            <tr>
-                                                                <th>Titel:</th>
-                                                                <th>{{ short_story['title'] }}</th>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>Opened by:</td>
-                                                                <td>{{ short_story['name'] }}</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>Date:</td>
-                                                                <td>{{ short_story['time'] }}</td>
-                                                            </tr>
-                                                        </table>
-                                                    </td>
-                                                    {% if g.user is not none and (discussion['author'] == g.user['id'] or
-                                                    g.user['level'] >= 2) %}
-                                                    <td>
-                                                        <a href="{{ url_for('discussions.delete_discussion', id=discussion['id']) }}"
-                                                           onclick="return confirm('Wollen sie wirklich ihren Kommentar löschen? Er kann nicht wiederhergestellt werden!')"><i
-                                                                class="fas fa-trash"></i></a>
-                                                    </td>
-                                                    {% endif %}
-                                                </tr>
-                                            </table>
-                                        </div>
-                                    </header>
-                                </article>
-                            </a>
-                        </div>
-
-                        {% endfor %}
-                        <div class="i-1">
-                            <i class="fas fa-calendar-day"></i>
-                        </div>
-                        <div class="div">
-                            <h4>Ereignisse:</h4>
-                        </div>
-
-                        {% for time_event in time_events %}
-
-                            <div class="topic-section">
-                                <a href="{{ url_for('discussions.discussion', id=discussion['id']) }}">
-                                    <article class="post">
-                                        <header>
-                                            <div>
-                                                <table>
-                                                    <tr>
-                                                        <td>
-                                                            <table>
-                                                                <tr>
-                                                                    <th>Name:</th>
-                                                                    <th>{{ time_event['name'] }}</th>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td>Beschreibung:</td>
-                                                                    <td>{{ time_event['description'] }}</td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td>Athon:</td>
-                                                                    <td>{{ time_event['athon'] }}</td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td>Jahr:</td>
-                                                                    <td>{{ time_event['year'] }}</td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td>Monat:</td>
-                                                                    <td>{{ time_event['month'] }}</td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td>Tag:</td>
-                                                                    <td>{{ time_event['day'] }}</td>
-                                                                </tr>
-                                                            </table>
-                                                        </td>
-                                                        {% if g.user is not none and (discussion['author'] == g.user['id'] or
-                                                        g.user['level'] >= 2) %}
-                                                        <td>
-                                                            <a href="{{ url_for('discussions.delete_discussion', id=discussion['id']) }}"
-                                                               onclick="return confirm('Wollen sie wirklich ihren Kommentar löschen? Er kann nicht wiederhergestellt werden!')"><i
-                                                                    class="fas fa-trash"></i></a>
-                                                        </td>
-                                                        {% endif %}
-                                                    </tr>
-                                                </table>
-                                            </div>
-                                        </header>
-                                    </article>
-                                </a>
-                            </div>
-
-                        {% endfor %}
-
-                        <div class="i-1">
-                            <i class="fas fa-female"></i>
-                        </div>
-                        <div class="div">
-                            <h4>Charaktere:</h4>
-                        </div>
-
-                        {% for character in characters %}
-
-                        <div class="topic-section">
-                            <a href="{{ url_for('characters.character', id=character['id']) }}">
-                                <article class="post">
-                                    <header>
-                                        <div>
-                                            <table>
-                                                <tr>
-                                                    <td>
-                                                        <table class="align-left">
-                                                            <tr>
-                                                                <td width="30%">Name:</td>
-                                                                <td width="70%">{{ character['name'] }}</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td width="30%">Titel:</td>
-                                                                <td width="70%">{{ character['family'] }}</td>
-                                                            </tr>
-                                                        </table>
-                                                    </td>
-
-                                                </tr>
-                                            </table>
-                                        </div>
-                                    </header>
-                                </article>
-                            </a>
-                        </div>
-
-                        {% endfor %}
 
                     </div>
                 </div>

@@ -30,6 +30,7 @@ CREATE TABLE user (
     password_reset_token STRING,
     email_confirmed INTEGER NOT NULL,
     visible INTEGER NOT NULL,
+    about_you STRING,
     confirmation_token STRING
 );
 
@@ -94,6 +95,7 @@ CREATE TABLE short_stories (
     story STRING NOT NULL,
     author INTEGER NOT NULL,
     time TIMESTAMP NOT NULL,
+    show INTEGER NOT NULL,
     FOREIGN KEY (author) REFERENCES user (id)
 );
 

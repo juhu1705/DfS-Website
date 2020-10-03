@@ -1,10 +1,10 @@
-import functools, os
+import functools
+import os
 
 from flask import (
-    Blueprint, flash, g, redirect, render_template, request, session, url_for, current_app, send_from_directory,
+    Blueprint, flash, g, redirect, render_template, url_for, current_app, send_from_directory,
     send_file
 )
-from werkzeug.security import check_password_hash, generate_password_hash
 
 from dfs.database import get_db
 
@@ -83,6 +83,21 @@ def admin_required(view):
     return wrapped_view
 
 
+@bp.route('/license')
+def license():
+    return render_template('home/license.html')
+
+
+@bp.route('/imprint')
+def imprint():
+    return render_template('home/imprint.html')
+
+
+@bp.route('/privacy')
+def privacy():
+    return render_template('home/privacy.html')
+
+
 @bp.route('/profile/<int:id>/delete', methods=('GET', 'POST'))
 @admin_required
 def delete_user(id):
@@ -95,6 +110,14 @@ def delete_user(id):
     db.execute('DELETE FROM time_event WHERE author = ?', (id,))
     db.execute('DELETE FROM user WHERE id = ?', (id,))
     db.commit()
+
+    path = os.path.join(current_app.instance_path, 'assets\\pictures\\profile', str(id), get_filename(id))
+
+    if os.path.exists(path):
+        path_extended = os.path.join(current_app.instance_path, os.path.join('assets\\pictures\\profile', str(id),
+                                                                             get_filename(id)))
+        print(path_extended)
+        os.remove(path_extended)
 
     return redirect(url_for('home.profiles'))
 

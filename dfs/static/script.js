@@ -4,6 +4,23 @@ const species = document.querySelectorAll('.species');
 const visibleChoose = document.querySelectorAll(".visible-checkbox");
 const selected = document.querySelectorAll(".selected");
 const areas = document.querySelectorAll("textarea");
+const tabs = document.querySelectorAll(".tab");
+const tabContents = document.querySelectorAll(".tab-content");
+
+tabs.forEach(tab => {
+    tab.addEventListener("click", () => {
+       tabs.forEach(tab => {
+          tab.classList.remove("focused");
+       });
+       tabContents.forEach(tabContent => {
+          if(tabContent.classList.contains(tab.id))
+            tabContent.classList.add("shown");
+          else
+            tabContent.classList.remove("shown");
+       });
+       tab.classList.toggle("focused");
+    });
+});
 
 areas.forEach(area => {
     area.addEventListener('input', () => {
@@ -29,7 +46,7 @@ visibleChoose.forEach(visible => {
                 label.innerHTML = "Ihr Profil ist sichtbar";
 
                 if(slash !== null) {
-                    slash.classList.toggle("fa-eye");
+                    slash.classList.add("fa-eye");
                     slash.classList.remove("fa-eye-slash");
                 }
                 visible.checked = true;
@@ -38,7 +55,7 @@ visibleChoose.forEach(visible => {
 
                 if(open !== null) {
                     open.classList.remove("fa-eye");
-                    open.classList.toggle("fa-eye-slash");
+                    open.classList.add("fa-eye-slash");
                 }
                 visible.checked = false;
             }
