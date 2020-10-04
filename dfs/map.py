@@ -54,7 +54,7 @@ def upload_map():
             if file and allowed_file(file.filename) and check_map_name(name, file.filename.rsplit('.')[1].lower()):
                 filename = secure_filename(file.filename)
 
-                path = os.path.join(current_app.instance_path, 'assets\\pictures\\maps')
+                path = os.path.join(current_app.instance_path, 'assets/pictures/maps')
 
                 os.makedirs(path, exist_ok=True)
 
@@ -64,17 +64,17 @@ def upload_map():
 
 
 def check_map_name(name, extension):
-    if os.path.exists(os.path.join(current_app.instance_path, 'assets\\pictures\\maps')):
-        for file in os.listdir(os.path.join(current_app.instance_path, 'assets\\pictures\\maps')):
+    if os.path.exists(os.path.join(current_app.instance_path, 'assets/pictures/maps')):
+        for file in os.listdir(os.path.join(current_app.instance_path, 'assets/pictures/maps')):
             if file == name + '.' + extension:
                 return False
     return True
 
 
 def get_maps():
-    if os.path.exists(os.path.join(current_app.instance_path, 'assets\\pictures\\maps')):
+    if os.path.exists(os.path.join(current_app.instance_path, 'assets/pictures/maps')):
         files = []
-        for file in os.listdir(os.path.join(current_app.instance_path, 'assets\\pictures\\maps')):
+        for file in os.listdir(os.path.join(current_app.instance_path, 'assets/pictures/maps')):
             files.append(file)
         return files
     else:
@@ -83,10 +83,10 @@ def get_maps():
 
 @bp.route('/map/<name>')
 def send_map(name):
-    path = os.path.join(current_app.instance_path, 'assets\\pictures\\maps')
+    path = os.path.join(current_app.instance_path, 'assets/pictures/maps')
 
     if os.path.exists(path) and os.path.exists(os.path.join(path, name)):
-        path_extended = os.path.join(current_app.instance_path, os.path.join('assets\\pictures\\maps', name))
+        path_extended = os.path.join(current_app.instance_path, os.path.join('assets/pictures/maps', name))
         print(path_extended)
         return send_file(path_extended)
     else:
@@ -95,10 +95,10 @@ def send_map(name):
 
 @bp.route('/map/<name>/delete')
 def delete(name):
-    path = os.path.join(current_app.instance_path, 'assets\\pictures\\maps')
+    path = os.path.join(current_app.instance_path, 'assets/pictures/maps')
 
     if os.path.exists(path) and os.path.exists(os.path.join(path, name)):
-        path_extended = os.path.join(current_app.instance_path, os.path.join('assets\\pictures\\maps', name))
+        path_extended = os.path.join(current_app.instance_path, os.path.join('assets/pictures/maps', name))
         print(path_extended)
         os.remove(path_extended)
 
