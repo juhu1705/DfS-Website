@@ -2,7 +2,7 @@
 /*
 
 # ...aber nicht diese Dateien/Verzeichnisse
-!/flaskr/
+!/dfs/
 !/.gitignore
 
 # pycache-Verzeichnisse überall ignorieren
