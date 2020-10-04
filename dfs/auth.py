@@ -60,14 +60,18 @@ def register():
             mail = request.form['mail']
             password = request.form['password']
             passwordcheck = request.form['passwordcheck']
+            agreement = request.form['agreement']
         except:
             flash('Post incorrect!')
+            flash('Unter umständen wurde der Datenschutzvereinbarung nicht zugestimmt! Diese Zustimmung ist erforderlich!')
             return redirect(url_for('home.index'))
         db = get_db()
         error = None
         user = db.execute('SELECT * FROM user WHERE name = ? or email = ?', (username, mail,)).fetchone()
 
-        if user is not None:
+        if not agreement:
+            error = 'Es wurde der Datenschutzvereinbarung nicht zugestimmt!'
+        elif user is not None:
             error = 'Der Benutzername oder die E-Mailaddresse sind bereits in Benutzung.'
         elif password != passwordcheck:
             error = 'Ihre Passwörter stimmen nicht überein.'

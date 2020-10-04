@@ -4,46 +4,15 @@
 
 {% endblock %}
 
-{% block direct_body %}
-<input type="checkbox" id="about_me_check">
-
-<div class="about_window">
-  <label for="about_me_check" id="about_me_check_close">
-     <i class="fas fa-times" id="about_me_cancel"></i>
-  </label>
-  <div class="about_list">
-    <div class="profile_picture">
-      <img src="/static/pictures/me.jpg" alt="">
-    </div>
-    <div class="me">
-    <div class="my_name">
-      Fabius Mettner
-    </div>
-    <div>*17.05.2002</div>
-    <div class="hobbies">
-      Hobbies:
-      <br>
-      Schreiben, Programmieren, Lesen und Fahrradfahren
-    </div>
-    <div class="lovely_books">
-      Meine Lieblingsbücher / Buchreihen:
-      <br>
-      Eragon, Eleria Triologie, Das Lied von Eis und Feuer
-    </div>
-    </div>
-  </div>
-</div>
-{% endblock %}
-
 {% block content_new %}
 <div id="top">
     <div id="top_background">
         <div id="description">
           <div id="description_header">Die fünf Schwerter</div>
           <div id="description_text">Dies ist die offizielle Website zu der Buchreihe 'Die fünf Schwerter' von Fabius Mettner. Hier kannst du alles zu den Hintergründen des Buches erfahren und einiges mehr. Nimm auch gerne an unseren Diskussionen Teil oder veröffentliche dein eigenes Fanart oder deine eigene Fanstory aus der Welt der fünf Schwerter.</div>
-          <label for="about_me_check" id="about_me">
+          <a class="btnredirect" href="{{url_for('home.me')}}">
             <div><span>Über mich</span></div><i class="fas fa-chevron-right"></i>
-          </label>
+          </a>
         </div>
     </div>
 </div>
@@ -51,18 +20,15 @@
   <div class="topic" id="books_title">Bücher</div>
   <div id="books">
     <div class="book_card">
-      <div class="cover"><img src="./Background.jpg"></div>
+      <div class="cover"><img src="/static/pictures/Background.JPG"></div>
       <div class="book_name">Schatten und Licht</div>
-      <a class="btn_holder" href="#">Leseprobe</a>
-    </div>
-    <div class="book_card">
-      <div class="cover"><img src="./Background.jpg"></div>
-      <div class="book_name">Feuer und Eis</div>
-      <a class="btn_holder" href="#">Leseprobe</a>
+      <a class="btnredirect" href="{{url_for('home.sul_preview')}}">
+        <div><span>Leseprobe</span></div><i class="fas fa-chevron-right"></i>
+      </a>
     </div>
   </div>
 </div>
-<div id="fanart">
+<!--<div id="fanart">
   <div class="topic" id="fanart_title">Fanart</div>
   <div class="discussions">
     <a class="card card_add" href="#"><i class="fas fa-plus"></i></a>
@@ -89,7 +55,7 @@
   <a class="btnredirect" href="#">
     <div><span>Weitere</span></div><i class="fas fa-chevron-right"></i>
   </a>
-</div>
+</div>-->
 
 <div id="discussions">
   <div class="topic" id="discussions_title">Diskussionen</div>

@@ -310,15 +310,6 @@ label #cancel {
   clip-path: polygon(100% 80%, 30% 100%, 100% 100%);
 }
 
-#top_background a {
-  border-radius: 20px;
-  width: 80rem;
-  height: 1.5rem;
-  margin: 2rem 2rem 8rem 2rem;
-  padding: 10px;
-  background: linear-gradient(120deg, #a1c4fd 0%, #c2b9fc 100%);
-}
-
 #description {
     position: relative;
     width: 20%;
@@ -524,7 +515,15 @@ label #cancel {
 
 .book_card img {
   width: 100%;
-  height: width;
+  height: 20rem;
+  border-radius: 5px 5px 0 0;
+  display: block;
+}
+
+.book_card .btnredirect {
+    margin-top: 0.5rem;
+    margin-right: 0.5rem;
+    align-self: end;
 }
 
 .book_name {
@@ -1312,6 +1311,18 @@ h2 {
     color: black;
     font-weight: bold;
     margin: 0.5rem 0 1.5rem 0;
+    display: grid;
+    grid-template-columns: 1fr auto;
+}
+
+.map_name a {
+    color: #4b4b4b;
+    transition: all 0.5s ease-in-out;
+    margin-right: 1rem;
+}
+
+.map_name a:hover, .map_name a:focus {
+    color: #2b2b2b;
 }
 
 .map_img {
@@ -1524,6 +1535,163 @@ h2 {
     margin: 25px 0;
     padding: 5px 0;
     border-bottom: 2px solid #d9d9d9;
+}
+
+/* Merkmale */
+
+.tag {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    margin-right: 4rem;
+    grid-gap: 1rem;
+    border: 2px solid lightgrey;
+    margin-bottom: 0.5rem;
+    padding: 0.1rem 0.5rem;
+    border-radius: 5px;
+}
+
+.tag .div, .tag .trash {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.tag a {
+    color: #8b8b8b;
+    transition: all .5s ease-in-out;
+}
+
+.tag a:hover, .tag a:focus {
+    color: #2b2b2b;
+}
+
+/* Charaktere */
+
+.finish-edit {
+    margin-left: 0;
+    margin-top: 1rem;
+    color: red;
+}
+
+.c_tag {
+    margin-left: 0.1rem;
+    margin-bottom: 0.4rem;
+    display: grid;
+    grid-template-columns: auto 0.5fr 1fr;
+    border: 2px solid lightgrey;
+    border-radius: 5px;
+    padding: 0.25rem 0.5rem;
+    margin-right: 2rem;
+}
+
+.c_tag i {
+    align-content: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Datenschutz */
+
+.agreement_input {
+    display: grid;
+    grid-template-columns: 7% 93%;
+    margin: 1rem 0;
+    padding: 5px 0;
+    border-bottom: 2px solid #d9d9d9;
+    height: 3em;
+}
+
+#agreement {
+    width: 2rem;
+    height: 1rem;
+    -webkit-appearance: none;
+    outline: none;
+    background: #2b2b2b;
+    border-radius: 0.5rem;
+    transition: all .5s;
+    box-shadow: inset 0 0 5px #BEBCBE;
+    cursor: pointer;
+}
+
+#agreement:checked {
+    background: lightgreen;
+}
+
+.center_checkbox {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+}
+
+.center_checkbox div {
+    position: relative;
+}
+
+#agreement::before {
+    content: '';
+    display: block;
+    position: absolute;
+    width: 0.8rem;
+    height: 0.8rem;
+    background: white;
+    border-radius: 0.4rem;
+    top: 0.1rem;
+    left: 0.1rem;
+    box-shadow: 0 2px 5px #BEBCBE;
+    transition: .5s;
+    cursor: pointer;
+}
+
+#agreement:checked::before {
+    left: 1.1rem;
+}
+
+.agreement_input .agreement_label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.agreement_label a {
+    color: black;
+    border-bottom: 1px dotted black;
+    margin: 0 0.2rem;
+}
+
+.agreement_label a:hover, .agreement_label a:focus {
+    border-bottom: 1px solid black;
+}
+
+/* Error Messages */
+
+.flash-container {
+    position: absolute;
+    z-index: 2;
+    right: 1rem;
+    bottom: 1rem;
+}
+
+.flash {
+    display: block;
+    background: lightgreen;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    border: 2px solid darkgray;
+    font-family: 'Lato', sans-serif;
+    margin: 1rem 0;
+    transition: .5s ease-out;
+}
+
+.flash-error {
+    background: red;
+}
+
+@keyframes fade-out {
+  from {opacity: 1;}
+  to {opacity: 0;}
 }
 
 /*  ====================================

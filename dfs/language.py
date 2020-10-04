@@ -21,6 +21,11 @@ bp = Blueprint('language', __name__, url_prefix='/language')
 def index():
     db = get_db()
 
+    flash('Diese Seite wird in Zukunft hinzugefügt!')
+
+    if 1 == 1:
+        return redirect(url_for('home.index'))
+
     languages = db.execute('SELECT * FROM language ORDER BY name ASC').fetchall()
 
     return render_template('language/languages.html', languages=languages)

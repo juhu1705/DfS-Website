@@ -143,22 +143,10 @@ def edit_character(id):
 
         for c_tag in c_tags:
 
-            print(c_tag['information_title'])
-            print(c_tag['position'])
-
-            print(request.parameter_storage_class)
-            print(request.values)
-
-            print(c_tag['information_title'] + '.' + c_tag['value'] in request.form)
-            print(c_tag['information_title'] + '.' + c_tag['value'] + '.value' in request.form)
-
-            if c_tag['information_title'] + '.' + c_tag['value'] in request.form \
-                    and c_tag['information_title'] + '.' + c_tag['value'] + '.value' in request.form:
-                tag_name = request.form[c_tag['information_title'] + '.' + c_tag['value']]
-                value = request.form[c_tag['information_title'] + '.' + c_tag['value'] + '.value']
-
-                print(c_tag)
-                print(c_tag['id'])
+            if str(c_tag['information_title']) + '.' + str(c_tag['value']) in request.form \
+                    and str(c_tag['information_title']) + '.' + str(c_tag['value']) + '.value' in request.form:
+                tag_name = request.form[str(c_tag['information_title']) + '.' + str(c_tag['value'])]
+                value = request.form[str(c_tag['information_title']) + '.' + str(c_tag['value']) + '.value']
 
                 if value != '':
                     tag = db.execute('SELECT * FROM information_order WHERE information_title = ?', (tag_name,)).fetchone()
@@ -172,8 +160,8 @@ def edit_character(id):
                     db.execute('DELETE FROM character_information WHERE id = ?', (c_tag['id'],))
 
         if 'select_tag' in request.form and 'tag' in request.form:
-            tag_name = request.form['select_tag']
-            value = request.form['tag']
+            tag_name = str(request.form['select_tag'])
+            value = str(request.form['tag'])
 
             if value != '':
                 tag = db.execute('SELECT * FROM information_order WHERE information_title = ?', (tag_name, )).fetchone()

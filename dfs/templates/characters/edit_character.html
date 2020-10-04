@@ -1,11 +1,5 @@
 {% extends 'base.html' %}
 
-{% block sidebar %}
-{% if g.user is not none and g.user['level'] >= 1 %}
-<li class="topbar"><a href="{{url_for('characters.character', id=character['id'])}}"><i class="fas fa-check"></i></a></li>
-{% endif %}
-{% endblock %}
-
 {% block content %}
 <div id="post-section">
     <div class="container">
@@ -174,6 +168,14 @@
                 <button id="btnconfirm" type="submit">
                     <div><span>Speichern</span></div><i class="fas fa-chevron-right"></i>
                 </button>
+
+                <a class="btnredirect finish-edit" href="{{url_for('characters.delete_character', id=character['id'])}}" onclick="return confirm('Wollen Sie diesen Charakter wirklich löschen? Er kann danach nicht wiederhergestellt werden!')">
+                    <div><span>Löschen</span></div><i class="fas fa-chevron-right"></i>
+                </a>
+
+                <a class="btnredirect finish-edit" href="{{url_for('characters.character', id=character['id'])}}" onclick="return confirm('Haben Sie alle gewünschten Änderungen schon gespeichert? Wenn Sie fortfahren werden ungespeicherte Änderungen verworfen!')">
+                    <div><span>Verlassen</span></div><i class="fas fa-chevron-right"></i>
+                </a>
             </form>
         </div>
     </div>

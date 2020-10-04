@@ -45,7 +45,20 @@
                         <input class="input" type="password" name="passwordcheck" id="passwordcheck" required>
                     </div>
                 </div>
-                <label for="btnconfirm">Mit der Registrierung stimmen sie zu, dass ihre persönlichen Angaben (Benutzername und E-Mail Addresse) auf dieser Website gespeichert werden. Auch werden alle Kommentare und Diskussionen die sie starten ihnen eindeutig zugeordnet. Sie können ihren Account jederzeit löschen.</label>
+
+
+                <div class="agreement_input">
+                    <div class="center_checkbox">
+                        <div>
+                            <input class="input" type="checkbox" name="agreement" id="agreement" required>
+                        </div>
+                    </div>
+                    <label for="agreement" class="agreement_label">Ich habe die <a href="{{ url_for('home.privacy') }}"> Datenschutzerklärung </a> gelesen und Stimme ihr zu.</label>
+
+                </div>
+
+
+                <label for="btnconfirm">Mit der Registrierung stimmen sie zu, dass Ihre persönlichen Angaben (Benutzername und E-Mail Addresse) auf dieser Website gespeichert werden. Auch werden alle Kommentare und Diskussionen die Sie starten Ihrem Account eindeutig zugeordnet. Sie können Ihren Account jederzeit löschen.</label>
                 <button id="btnconfirm" type="submit">
                     <div><span>Registrieren</span></div><i class="fas fa-chevron-right"></i>
                 </button>

@@ -23,6 +23,16 @@ def index():
     return render_template('home/home.html', discussions=discussions, comments=comments, i=0)
 
 
+@bp.route('/me')
+def me():
+    return render_template('home/about_me.html')
+
+
+@bp.route('/sul_preview')
+def sul_preview():
+    return render_template('home/sul_preview.html')
+
+
 @bp.route('/profiles', methods=('GET', 'POST'))
 def profiles():
     db = get_db()

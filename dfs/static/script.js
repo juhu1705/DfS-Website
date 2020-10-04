@@ -190,11 +190,18 @@ species.forEach(input => {
 });
 
 function clickFunc() {
+    this.style.animation = 'fade-out .5s ease-out 0s 1';
+}
+
+function removeFlash() {
     this.style.display = 'none';
+    this.style.animation = 'none';
 }
 
 flashNodes.forEach(flashNode => {
-    flashNode.addEventListener('click', clickFunc)
+    flashNode.addEventListener('click', clickFunc);
+    flashNode.addEventListener('animationend', removeFlash);
+    flashNode.addEventListener("webkitAnimationEnd", removeFlash);
 });
 
 function triggerPictureChoose() {

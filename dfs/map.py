@@ -91,3 +91,16 @@ def send_map(name):
         return send_file(path_extended)
     else:
         return send_from_directory('static', 'pictures/blank.png')
+
+
+@bp.route('/map/<name>/delete')
+def delete(name):
+    path = os.path.join(current_app.instance_path, 'assets\\pictures\\maps')
+
+    if os.path.exists(path) and os.path.exists(os.path.join(path, name)):
+        path_extended = os.path.join(current_app.instance_path, os.path.join('assets\\pictures\\maps', name))
+        print(path_extended)
+        os.remove(path_extended)
+
+    return redirect(url_for('map.index'))
+

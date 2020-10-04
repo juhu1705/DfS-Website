@@ -1,51 +1,32 @@
 {% extends 'base.html' %}
 
-{% block header %}
-
-{% endblock %}
-
-{% block sidebar %}
-{% if g.user is not none and g.user['level'] >= 1 %}
-<li class="topbar"><a href="{{url_for('characters.create_tag', id=character['id'])}}"><i class="fas fa-tag"></i></a></li>
-<li class="topbar"><a href="{{url_for('characters.tags')}}"><i class="fas fa-tags"></i></a></li>
-<li class="topbar"><a href="{{url_for('characters.delete_character', id=character['id'])}}" onclick="return confirm('Wollen sie den Character wirklich unwiederruflich löschen?')"><i class="fas fa-trash"></i></a></li>
-<li class="topbar"><a href="{{url_for('characters.edit_character', id=character['id'])}}"><i class="fas fa-pen"></i></a></li>
-{% endif %}
-{% endblock %}
-
 {% block content %}
 <div id="post-section">
     <div class="container">
-        <div class="login-content">
-            <div>
-                <div>
+        <div class="login-content discussion_topbar">
+            <div class="topic" id="discussions_title">{{ character['name'] }} {{ character['family'] }}</div>
+            {% if g.user is not none and g.user['level'] >= 1 %}
+            <div class="function_holder" id="without_margin_right">
+                <a class="btnredirect" href="{{url_for('characters.edit_character', id=character['id'])}}"><div><span>Bearbeiten</span></div><i class="fas fa-pen"></i></a>
+                <a class="btnredirect" href="{{url_for('characters.create_tag', id=character['id'])}}"><div><span>Neues Merkmal</span></div><i class="fas fa-tag"></i></a>
+            </div>
+            {% endif %}
+        </div>
+        <div class="list-information">
+            <div class="scrollable">
 
-                    <h2>Character - {{character['name']}}</h2>
+                {% for character_information in all_character_information %}
+                <div class="characters_name c_tag">
+                    <i class="fas fa-caret-right"></i>
+                    <h4>{{character_information['title']}}:</h4>
+                    <h4>{{character_information['value']}}</h4>
                 </div>
-                <div class="list-information">
-                    <div class="scrollable">
-                        <div class="i-1">
-                            <i class="fas fa-user"></i>
-                        </div>
-                        <div class="div">
-                            <h4>{{ character['name'] }} {{ character['family'] }}</h4>
-                        </div>
 
-                        {% for character_information in all_character_information %}
+                {% endfor %}
 
-                        <div class="i-1">
-                            <i class="fas fa-tag"></i>
-                        </div>
-                        <div class="div">
-                            <h4>{{character_information['title']}}: {{character_information['value']}}</h4>
-                        </div>
-
-                        {% endfor %}
-
-                    </div>
-                </div>
             </div>
         </div>
     </div>
 </div>
+
 {% endblock %}
