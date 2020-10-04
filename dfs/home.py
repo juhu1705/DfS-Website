@@ -61,10 +61,10 @@ def visit_profile(id):
 
 @bp.route('/profile_picture/<int:id>')
 def profile_picture(id):
-    path = os.path.join(current_app.instance_path, 'assets\\pictures\\profile', str(id), get_filename(id))
+    path = os.path.join(current_app.instance_path, 'assets/pictures/profile', str(id), get_filename(id))
 
     if os.path.exists(path):
-        path_extended = os.path.join(current_app.instance_path, os.path.join('assets\\pictures\\profile', str(id),
+        path_extended = os.path.join(current_app.instance_path, os.path.join('assets/pictures/profile', str(id),
                                                                              get_filename(id)))
         print(path_extended)
         return send_file(path_extended)
@@ -73,8 +73,8 @@ def profile_picture(id):
 
 
 def get_filename(id: int):
-    if os.path.exists(os.path.join(current_app.instance_path, 'assets\\pictures\\profile', str(id))):
-        for file in os.listdir(os.path.join(current_app.instance_path, 'assets\\pictures\\profile', str(id))):
+    if os.path.exists(os.path.join(current_app.instance_path, 'assets/pictures/profile', str(id))):
+        for file in os.listdir(os.path.join(current_app.instance_path, 'assets/pictures/profile', str(id))):
             if file.startswith("profile_picture."):
                 return file
     else:
@@ -121,10 +121,10 @@ def delete_user(id):
     db.execute('DELETE FROM user WHERE id = ?', (id,))
     db.commit()
 
-    path = os.path.join(current_app.instance_path, 'assets\\pictures\\profile', str(id), get_filename(id))
+    path = os.path.join(current_app.instance_path, 'assets/pictures/profile', str(id), get_filename(id))
 
     if os.path.exists(path):
-        path_extended = os.path.join(current_app.instance_path, os.path.join('assets\\pictures\\profile', str(id),
+        path_extended = os.path.join(current_app.instance_path, os.path.join('assets/pictures/profile', str(id),
                                                                              get_filename(id)))
         print(path_extended)
         os.remove(path_extended)
