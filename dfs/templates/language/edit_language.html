@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+
+{% block sidebar %}
+{% if g.user is not none and g.user['level'] > 1 %}
+<li class="topbar"><a href="{{url_for('language.delete_language', id=language['id'])}}" onclick="return confirm('Wollen sie wirklich diese Sprache löschen? Alle Wörter und Informationen werden unwiederruflich mitgelöscht!')"><i class="fas fa-trash"></i></a></li>
+{% endif %}
+{% endblock %}
+
+{% block content %}
+<div id="post-section">
+    <div class="container">
+        <div class="login-content">
+            <form method="post">
+                <h2 class="title">Sprache bearbeiten</h2>
+                <div class="input-div one">
+                    <div class="i">
+                        <i class="fas fa-tag"></i>
+                    </div>
+                    <div class="div">
+                        <h5>Name</h5>
+                        <input class="input" type="text" name="name" id="name" maxlength="25" value="{{ language['name'] }}" required>
+                    </div>
+                </div>
+                <div class="input-div text-area">
+                    <div class="i">
+                        <i class="far fa-comment-dots"></i>
+                    </div>
+
+                    <div class="div">
+                        <h5>Beschreibung</h5>
+                        <textarea class="input" name="description" id="area-for-comment" rows="4" required>{{ language['description'] }}</textarea>
+                    </div>
+
+                </div>
+
+                <div class="input-div selector-line">
+                    <div class="i">
+                        <i class="fas fa-font"></i>
+                    </div>
+
+                    <div class="div">
+                        <h5>Schrift</h5>
+
+                        <div class="select-box">
+                            <div class="option-container">
+                                {% for write in writing %}
+                                <div class="option {{write['name']}}">
+                                    <input type="radio" class="radio" id="{{write['name']}}.option" name="category">
+                                    <label for="{{write['name']}}.option">{{write['name']}}</label>
+                                </div>
+                                {% endfor %}
+                            </div>
+                            {% for write in writing %}
+                            {% if language['writing_id'] and write['id'] == language['writing_id'] %}
+                            <input class="selected {{write['name']}}" name="{{write['name']}}" id="{{write['name']}}" value="{{write['name']}}" readonly="readonly">
+                            {% endif %}
+                            {% endfor %}
+                            {% if not language['writing_id'] %}
+                            <input class="selected" name="select_writing" id="select_writing" readonly="readonly">
+                            {% endif %}
+                            <div class="search-box">
+                                <input type="text" placeholder="Suche..." />
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="i arrow">
+                        <i class="fas fa-angle-down"></i>
+                    </div>
+                </div>
+
+                <input id="btnconfirm" type="submit" value="Überschreiben">
+
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

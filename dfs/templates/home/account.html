@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div id="post-section">
+    <div class="container">
+        <div class="login-content">
+            <div class="profile_splitter">
+                <div>
+                    <img id="account_picture" class="profile_picture"
+                         src="{{ url_for('home.profile_picture', id=user['id']) }}">
+                    <h2 class="username">{{user['name']}}</h2>
+                    {% if user['about_you'] is not none and user['about_you'] != '' and user['about_you'] != 'None' %}
+                    <div class="about_user"><div>{{ user['about_you'] }}</div></div>
+                    {% endif %}
+                    <div class="mail_name"><i class="fas fa-envelope"></i>E-Mail: <a href="mailto:{{user['email']}}?subject=DfS Kontaktaufnahme">{{ user['email'] }}</a></div>
+                    {% if g.user is not none and g.user['level'] >= 2 %}
+                    <div class="delete_account">
+                        <h3 class="delete_account_header">Nutzer kicken</h3>
+                        <div class="delete_account_warn_text">Wenn der Account gelöscht wird, können seine Daten nicht wiederhergestellt werden!</div>
+                        <a class="btnredirect" href="{{ url_for('home.delete_user', id=user['id']) }}" onclick="return confirm('Wollen sie wirklich diesen Account löschen? Er kann nicht wiederhergestellt werden! Alle von ihm erstellte Daten werden gelöscht! Erstellte Charactere bleiben dennoch erhalten!')">
+                            <div><span>Kicken</span></div><i class="fas fa-chevron-right"></i>
+                        </a>
+                    </div>
+                    <div class="delete_account">
+                        <h3 class="delete_account_header">Benutzerrechte ändern</h3>
+                        <div class="delete_account_warn_text">Wenn die Benutzerrechte geändert werden, kann die Person möglicherweise ihre neue Macht missbrauchen!</div>
+                        <a class="btnredirect" href="{{ url_for('auth.set_status', id=user['id'], status=2) }}" onclick="return confirm('Wollen sie wirklich diesen Account zum Admin machen?')">
+                            <div><span>Admin</span></div><i class="fas fa-chevron-right"></i>
+                        </a>
+                        <a class="btnredirect" href="{{ url_for('auth.set_status', id=user['id'], status=1) }}" onclick="return confirm('Wollen sie wirklich diesen Account zum Supporter machen?')">
+                            <div><span>Supporter</span></div><i class="fas fa-chevron-right"></i>
+                        </a>
+                        <a class="btnredirect" href="{{ url_for('auth.set_status', id=user['id'], status=0) }}" onclick="return confirm('Wollen sie wirklich diesen Account zum normalen Benutzer herabstufen?')">
+                            <div><span>Normal</span></div><i class="fas fa-chevron-right"></i>
+                        </a>
+                    </div>
+                    {% endif %}
+                </div>
+                <div class="list-information">
+                    <div class="scrollable">
+
+                        <div class="nav-bar">
+                            <div class="tab focused" id="tab-1"><i class="far fa-comment-dots"></i>Diskussionen</div>
+                            <div class="tab" id="tab-2"><i class="fas fa-bookmark"></i>Kurzgeschichten</div>
+                            <div class="tab" id="tab-3"><i class="fas fa-palette"></i>Fanart</div>
+                            <div class="tab" id="tab-4"><i class="fas fa-female"></i>Charaktere</div>
+                        </div>
+
+
+
+
+                        <div class="discussions tab-content tab-1 shown">
+                            {% for discussion in discussions %}
+                                <div class="card topic-section {{discussion['title']}} {{discussion['name']}}" href="{{ url_for('discussions.discussion', id=discussion['id']) }}">
+                                    <div class="discussion_topic">{{ discussion['title'] }}</div>
+                                    <div class="discussion_description">{{ discussion['description'] }}</div>
+                                    <div class="discussion_footer">
+                                        <div>
+                                            <div class="discussion_author">Autor: {{ discussion['name'] }}</div>
+                                            {% for comment in comments %}
+                                                {% if comment['id'] == discussion['id'] %}
+                                                    {% if comment['comments'] == 1 %}
+                                                        <div class="discussion_author">{{ comment['comments'] }} Nachricht</div>
+                                                    {% else %}
+                                                        <div class="discussion_author">{{ comment['comments'] }} Nachrichten</div>
+                                                    {% endif %}
+                                                {% endif %}
+                                            {% endfor %}
+                                        </div>
+                                        <div class="open_discussion">
+                                            <a class="btnredirect" href="{{ url_for('discussions.discussion', id=discussion['id']) }}">
+                                                <div><span>Öffnen</span></div><i class="fas fa-chevron-right"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="discussion_date">Erstellt am {{ discussion['created'] }}</div>
+                                </div>
+                            {% endfor %}
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

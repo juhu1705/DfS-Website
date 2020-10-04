@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div id="post-section">
+    <div id="header-section">
+        <div id="container">
+            <div class="login-content">
+                <h2 class="title">Profile</h2>
+            </div>
+
+        </div>
+    </div>
+
+    <div id="topic-section">
+        <div class="search">
+            <div class="input-div">
+                <div class="i">
+                    <i class="fas fa-search"></i>
+                </div>
+                <div class="div">
+                    <h5>Suche</h5>
+                    <input class="input" type="text" name="search" id="search" onkeyup="searchCharacters()">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="scrollable">
+        <div class="discussions" id="users_grid">
+            {% for user in users %}
+            <div class="card topic-section {{user['name']}} {{user['email']}}" id="users_card" href="{{ url_for('home.visit_profile', id=user['id']) }}">
+                <img class="profile_picture" src="{{ url_for('home.profile_picture', id=user['id']) }}">
+
+                <div class="profile_username">{{ user['name'] }}</div>
+                <div class="profile_mail">E-Mail: {{ user['email'] }}</div>
+
+                <div class="discussion_footer">
+                    <div></div>
+                    <div class="open_discussion">
+                        <a class="btnredirect" href="{{ url_for('home.visit_profile', id=user['id']) }}">
+                            <div><span>Besuchen</span></div><i class="fas fa-chevron-right"></i>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div id="post-section">
+    <div id="header-section">
+        <div id="container">
+            <div class="login-content discussion_topbar">
+                <div class="topic" id="discussions_title">Karten</div>
+                {% if g.user is not none and g.user['level'] >= 2 %}
+                <a class="btnredirect" href="{{url_for('map.upload_map')}}"><div><span>Neu</span></div><i class="fas fa-plus"></i></a>
+                {% endif %}
+            </div>
+
+        </div>
+    </div>
+
+    <div class="maps">
+        {% for map in maps %}
+        <div class="map" href="{{ url_for('map.send_map', name=map) }}">
+            <div class="map_name">
+                <div>{{ map.split('.')[0] }}</div>
+                {% if g.user is not none and g.user['level'] >= 2 %}
+                <a href="{{ url_for('map.delete', name=map) }}">
+                    <i class="fas fa-trash"></i>
+                </a>
+                {% endif %}
+            </div>
+
+            <a href="{{ url_for('map.send_map', name=map) }}">
+                <img class="map_img" src="{{ url_for('map.send_map', name=map) }}">
+            </a>
+        </div>
+
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

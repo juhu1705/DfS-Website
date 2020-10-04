@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div id="post-section">
+    <div class="container">
+        <div class="login-content discussion_topbar">
+            <div class="topic" id="discussions_title">Charaktere</div>
+            {% if g.user is not none and g.user['level'] >= 1 %}
+            <a class="btnredirect" href="{{url_for('characters.create_tag_in_tags')}}"><div><span>Neu</span></div><i class="fas fa-plus"></i></a>
+            {% endif %}
+        </div>
+        <div class="list-information">
+            <div class="scrollable">
+                {% for tag in tags %}
+                <div class="tag">
+                    <div class="arrows">
+                        <a href="{{ url_for('characters.tag_up', position = tag['position']) }}">
+                            <div class="i-arrows">
+                                <i class="fas fa-angle-up up"></i>
+                            </div>
+                        </a>
+                        <a href="{{ url_for('characters.tag_down', position = tag['position']) }}">
+                            <div class="i-arrows">
+                                <i class="fas fa-angle-down down"></i>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="div">
+                        <h4>{{ tag['information_title'] }}</h4>
+                    </div>
+                    <div class="trash">
+                        <a href="{{ url_for('characters.delete_tag', position = tag['position']) }}">
+                            <i class="fas fa-trash"></i>
+                        </a>
+                    </div>
+                </div>
+                {% endfor %}
+
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
