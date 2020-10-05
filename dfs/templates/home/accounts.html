@@ -32,8 +32,9 @@
                 <img class="profile_picture" src="{{ url_for('home.profile_picture', id=user['id']) }}">
 
                 <div class="profile_username">{{ user['name'] }}</div>
+                {% if user['visible'] == 2 %}
                 <div class="profile_mail">E-Mail: {{ user['email'] }}</div>
-
+                {% endif %}
                 <div class="discussion_footer">
                     <div></div>
                     <div class="open_discussion">

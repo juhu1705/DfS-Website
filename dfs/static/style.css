@@ -1121,11 +1121,6 @@ h2 {
     display: none;
 }
 
-#visible {
-    display: none;
-    left: 0;
-}
-
 .visible-text {
     position: absolute;
     width: 100%;

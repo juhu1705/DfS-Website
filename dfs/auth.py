@@ -267,11 +267,19 @@ def profile():
 
         if error is None:
             if 'visible' in request.form:
-                db.execute('UPDATE user SET visible = ? WHERE id = ?', (1, g.user['id']))
-                print('Profile shown')
-            else:
-                db.execute('UPDATE user SET visible = ? WHERE id = ?', (0, g.user['id']))
-                print('Profile disabled')
+                try:
+                    visible = request.form['visible']
+                except:
+                    flash('Post incorrect!')
+                    print('Fehler')
+                    return redirect(url_for('home.index'))
+                if visible == 'Sichtbar mit E-Mail':
+                    db.execute('UPDATE user SET visible = ? WHERE id = ?', (2, g.user['id']))
+                elif visible == 'Sichtbar ohne E-Mail':
+                    db.execute('UPDATE user SET visible = ? WHERE id = ?', (1, g.user['id']))
+                elif visible == 'Unsichtbar':
+                    db.execute('UPDATE user SET visible = ? WHERE id = ?', (0, g.user['id']))
+
             if 'about_you' in request.form:
                 db.execute('UPDATE user SET about_you = ? WHERE id = ?', (request.form['about_you'], g.user['id']))
             update = True

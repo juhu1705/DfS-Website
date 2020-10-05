@@ -83,26 +83,51 @@
                         <input class="input" type="password" name="new_password2" id="new_password2">
                     </div>
                 </div>
-                <div class="input-div visibility">
+
+
+                <div class="input-div selector-line">
                     <div class="i">
-                        {% if g.user['visible'] == 0 %}
-                        <i class="far fa-eye-slash"></i>
-                        {% else %}
-                        <i class="far fa-eye"></i>
-                        {% endif %}
+                        <i class="fas fa-user-tag"></i>
                     </div>
                     <div class="div">
-                        <h5>Visible</h5>
-                        {% if g.user['visible'] == 0 %}
-                        <label for="visible" class="visible-text">Ihr Profil ist unsichtbar</label>
-                        <input class="input visible-checkbox" type="checkbox" name="visible" id="visible" checked>
-                        {% else %}
-                        <label for="visible" class="visible-text">Ihr Profil ist sichtbar</label>
-                        <input class="input visible-checkbox" type="checkbox" name="visible" id="visible">
-                        {% endif %}
+                        <h5>Sichtbarkeit</h5>
 
 
+                        <div class="select-box visible">
+                            <div class="option-container visible">
 
+                                <div class="option Unsichtbar">
+                                    <input type="radio" class="radio" id="unsichtbar" name="category">
+                                    <label for="unsichtbar">Unsichtbar</label>
+                                </div>
+                                <div class="option Sichtbar ohne E-Mail">
+                                    <input type="radio" class="radio" id="sichtbar-1" name="category">
+                                    <label for="sichtbar-1">Sichtbar ohne E-Mail</label>
+                                </div>
+                                <div class="option Sichtbar mit E-Mail">
+                                    <input type="radio" class="radio" id="sichtbar-2" name="category">
+                                    <label for="sichtbar-2">Sichtbar mit E-Mail</label>
+                                </div>
+
+                            </div>
+
+                            {% if g.user['visible'] == 0 %}
+                            <input class="input selected visible" name="visible" id="visible" value="Unsichtbar" readonly="readonly">
+                            {% elif g.user['visible'] == 1%}
+                            <input class="input selected visible" name="visible" id="visible" value="Sichtbar ohne E-Mail" readonly="readonly">
+                            {% else %}
+                            <input class="input selected visible" name="visible" id="visible" value="Sichtbar mit E-Mail" readonly="readonly">
+                            {% endif %}
+
+
+                            <div class="search-box">
+                                <input type="text" placeholder="Suche..." />
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="i arrow">
+                        <i class="fas fa-angle-down"></i>
                     </div>
                 </div>
 

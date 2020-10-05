@@ -36,7 +36,10 @@ def sul_preview():
 @bp.route('/profiles', methods=('GET', 'POST'))
 def profiles():
     db = get_db()
-    users = db.execute('SELECT * FROM user WHERE visible = 1').fetchall()
+    if g.user['level'] >= 2:
+        users = db.execute('SELECT * FROM user').fetchall()
+    else:
+        users = db.execute('SELECT * FROM user WHERE visible = 1').fetchall()
 
     return render_template('home/accounts.html', users=users)
 
@@ -44,7 +47,7 @@ def profiles():
 @bp.route('/profile/<int:id>', methods=('GET', 'POST'))
 def visit_profile(id):
     user = get_db().execute('SELECT * FROM user WHERE id = ?', (id, )).fetchone()
-    if(user['visible']):
+    if user['visible'] == 1 or user['visible'] == 2 or g.user['level'] >= 2:
         discussions = get_db().execute('SELECT * FROM discussion d, user u WHERE d.author = ? AND d.author = u.id', (id, )).fetchall()
         short_stories = get_db().execute('SELECT * FROM short_stories s, user u WHERE s.author = ?  AND s.author = u.id', (id,)).fetchall()
         time_events = get_db().execute('SELECT * FROM time_event t, user u WHERE t.author = ? AND t.author = u.id', (id,)).fetchall()

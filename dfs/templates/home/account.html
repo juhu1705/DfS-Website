@@ -12,7 +12,9 @@
                     {% if user['about_you'] is not none and user['about_you'] != '' and user['about_you'] != 'None' %}
                     <div class="about_user"><div>{{ user['about_you'] }}</div></div>
                     {% endif %}
+                    {% if user['visible'] == 2 %}
                     <div class="mail_name"><i class="fas fa-envelope"></i>E-Mail: <a href="mailto:{{user['email']}}?subject=DfS Kontaktaufnahme">{{ user['email'] }}</a></div>
+                    {% endif %}
                     {% if g.user is not none and g.user['level'] >= 2 %}
                     <div class="delete_account">
                         <h3 class="delete_account_header">Nutzer kicken</h3>
