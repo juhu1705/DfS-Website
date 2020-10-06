@@ -49,6 +49,11 @@ body {
     background-color: #333333;
 }
 
+@viewport {
+    zoom: 1.0;
+    width: extend-to-zoom;
+}
+
 /*  =========
     Kopfzeile
     =========  */
@@ -1027,7 +1032,7 @@ textarea {
 
 #post-section {
     background: white;
-    padding: 1.5rem;
+    margin: 1.5rem;
 }
 
 
@@ -1339,6 +1344,7 @@ h2 {
 .license {
     padding-left: 2rem;
     margin-top: 1rem;
+    padding-right: 2rem;
 }
 
 .license .paragraph {
@@ -1699,6 +1705,16 @@ h2 {
     display: none;
   }
 
+  .agreement_input .agreement_label {
+    display: initial;
+    margin-left: 2rem;
+  }
+
+  .tag {
+    margin-right: 2rem;
+    margin-left: 2rem;
+  }
+
   .sidebar {
     width: 100%;
     left: -100%;
@@ -1767,6 +1783,7 @@ h2 {
 
   .header {
     height: 4.5rem;
+    width: 200%
   }
 
   #page main {
