@@ -39,7 +39,7 @@ def profiles():
     if g.user is not None and g.user['level'] >= 2:
         users = db.execute('SELECT * FROM user').fetchall()
     else:
-        users = db.execute('SELECT * FROM user WHERE visible = 1').fetchall()
+        users = db.execute('SELECT * FROM user WHERE visible = 1 OR visible = 2').fetchall()
 
     return render_template('home/accounts.html', users=users)
 
