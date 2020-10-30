@@ -289,7 +289,7 @@ label #cancel {
 
 #top_background {
   display: flex;
-  width: 100%;
+  width: 100vw;
   background: url("/static/pictures/Background.JPG");
   background-size: cover;
   justify-content: center;
@@ -301,7 +301,7 @@ label #cancel {
   content: '';
   position: absolute;
   height: 100%;
-  width: 100%;
+  width: 100vw;
 }
 
 #top_background::before {
@@ -1374,7 +1374,7 @@ h2 {
   animation-duration: 2s;
 }
 
-.topic-section.species {
+.species {
     display: grid;
     grid-template-columns: 1fr auto;
     padding: 1rem 0.5rem 0 0.5rem;
@@ -1383,12 +1383,12 @@ h2 {
     cursor: pointer;
 }
 
-.topic-section.species h2 {
+.species h2 {
     border-bottom: initial;
     margin: 0;
 }
 
-.topic-section.species i {
+.species i {
     text-align: center;
     width: 4rem;
     margin-top: 0.5rem;
@@ -1693,6 +1693,10 @@ h2 {
 @keyframes fade-out {
   from {opacity: 1;}
   to {opacity: 0;}
+}
+
+.no_height {
+    min-height: initial;
 }
 
 /*  ====================================

@@ -22,20 +22,25 @@ def index():
     db = get_db()
 
     enfali = db.execute('SELECT * FROM characters c, user_permissions up'
-                        ' WHERE c.id = up.character_id AND species = "Enfali" ORDER BY name DESC').fetchall()
+                        ' WHERE c.id = up.character_id AND species = "Enfali" ORDER BY name ASC').fetchall()
     nithriln = db.execute('SELECT * FROM characters c, user_permissions up'
-                          ' WHERE c.id = up.character_id AND species = "Nithriln" ORDER BY name DESC').fetchall()
+                          ' WHERE c.id = up.character_id AND species = "Nithriln" ORDER BY name ASC').fetchall()
     menschen = db.execute('SELECT * FROM characters c, user_permissions up'
-                          ' WHERE c.id = up.character_id AND species = "Mensch" ORDER BY name DESC').fetchall()
+                          ' WHERE c.id = up.character_id AND species = "Mensch" ORDER BY name ASC').fetchall()
     zwerge = db.execute('SELECT * FROM characters c, user_permissions up'
-                        ' WHERE c.id = up.character_id AND species = "Zwerg" ORDER BY name DESC').fetchall()
+                        ' WHERE c.id = up.character_id AND species = "Zwerg" ORDER BY name ASC').fetchall()
     elfen = db.execute('SELECT * FROM characters c, user_permissions up'
-                       ' WHERE c.id = up.character_id AND species = "Elf" ORDER BY name DESC').fetchall()
+                       ' WHERE c.id = up.character_id AND species = "Elf" ORDER BY name ASC').fetchall()
     drachen = db.execute('SELECT * FROM characters c, user_permissions up'
-                         ' WHERE c.id = up.character_id AND species = "Drache" ORDER BY name DESC').fetchall()
+                         ' WHERE c.id = up.character_id AND species = "Drache" ORDER BY name ASC').fetchall()
+
+    all_character_information = db.execute('SELECT * FROM character_information ci, information_order io'
+                                           ' WHERE io.information_title = ci.title AND io.position <= 5'
+                                           ' ORDER BY io.position ASC').fetchall()
 
     return render_template('characters/characters.html', enfali=enfali,
-                           nithriln=nithriln, menschen=menschen, zwerge=zwerge, elfen=elfen, drachen=drachen)
+                           nithriln=nithriln, menschen=menschen, zwerge=zwerge, elfen=elfen, drachen=drachen,
+                           all_character_information=all_character_information)
 
 
 @bp.route('/<int:id>', methods=('GET', 'POST') )

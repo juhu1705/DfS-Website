@@ -169,7 +169,7 @@ inputs.forEach(input => {
 function onChangeViewSpecies() {
     element = document.getElementsByClassName(this.id)[0];
     if(element.style.display == "none") {
-        element.style.display = "block";
+        element.style.display = "grid";
         e1 = element.parentNode.querySelector(".fa-angle-down");
         if(e1 !== null) {
             e1.classList.toggle("fa-angle-up");

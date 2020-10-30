@@ -28,6 +28,7 @@
     <div class="scrollable">
         <div class="discussions" id="users_grid">
             {% for user in users %}
+            {% if user['visible'] == 2 %}
             <div class="card topic-section {{user['name']}} {{user['email']}}" id="users_card" href="{{ url_for('home.visit_profile', id=user['id']) }}">
                 <img class="profile_picture" src="{{ url_for('home.profile_picture', id=user['id']) }}">
 
@@ -45,6 +46,22 @@
                 </div>
 
             </div>
+            {% else %}
+            <div class="card topic-section {{user['name']}}" id="users_card" href="{{ url_for('home.visit_profile', id=user['id']) }}">
+                <img class="profile_picture" src="{{ url_for('home.profile_picture', id=user['id']) }}">
+
+                <div class="profile_username">{{ user['name'] }}</div>
+                <div class="discussion_footer">
+                    <div></div>
+                    <div class="open_discussion">
+                        <a class="btnredirect" href="{{ url_for('home.visit_profile', id=user['id']) }}">
+                            <div><span>Besuchen</span></div><i class="fas fa-chevron-right"></i>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+            {% endif %}
             {% endfor %}
         </div>
     </div>

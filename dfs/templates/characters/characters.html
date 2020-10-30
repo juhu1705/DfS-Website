@@ -31,81 +31,155 @@
     </div>
 
     <div class="scrollable">
-        <div class="topic-section species" id="enfali">
+        <div class="species" id="enfali">
             <h2>Enfali</h2>
             <i class="fas fa-angle-up" aria-hidden="true"></i>
         </div>
-        <div class="species_content enfali">
+        <div class="species_content enfali discussions">
             {% for enf in enfali %}
-            <div class="topic-section {{enf['name']}} {{enf['family']}}">
-                <a class="characters_name" href="{{url_for('characters.character', id=enf['id'])}}">
-                    <i class="fas fa-caret-right"></i>{{ enf['name'] }} {{ enf['family'] }}
-                </a>
+            <div class="card no_height topic-section {{enf['name']}} {{enf['family']}}">
+                <div class="discussion_topic">{{ enf['name'] }} {{ enf['family'] }}</div>
+                <div class="discussion_footer">
+                    <div>
+
+                        {% for info in all_character_information %}
+                            {% if info['character_id'] == enf['id'] %}
+                            <div class="discussion_author">{{ info['title'] }}: {{ info['value'] }}</div>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                    <div class="open_discussion">
+                        <a class="btnredirect" href="{{ url_for('characters.character', id=enf['id']) }}">
+                            <div><span>Öffnen</span></div><i class="fas fa-chevron-right"></i>
+                        </a>
+                    </div>
+                </div>
             </div>
             {% endfor %}
         </div>
-        <div class="topic-section species" id="nithriln">
+        <div class="species" id="nithriln">
             <h2>Nithriln</h2>
             <i class="fas fa-angle-up" aria-hidden="true"></i>
         </div>
-        <div class="species_content nithriln">
+        <div class="species_content nithriln discussions">
             {% for nith in nithriln %}
-            <div class="topic-section {{nith['name']}} {{nith['family']}}">
-                <a class="characters_name" href="{{url_for('characters.character', id=nith['id'])}}">
-                    <i class="fas fa-caret-right"></i>{{ nith['name'] }} {{ nith['family'] }}
-                </a>
+            <div class="card no_height topic-section {{nith['name']}} {{nith['family']}}">
+                <div class="discussion_topic">{{ nith['name'] }} {{ nith['family'] }}</div>
+                <div class="discussion_footer">
+                    <div>
+
+                        {% for info in all_character_information %}
+                            {% if info['character_id'] == nith['id'] %}
+                            <div class="discussion_author">{{ info['title'] }}: {{ info['value'] }}</div>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                    <div class="open_discussion">
+                        <a class="btnredirect" href="{{ url_for('characters.character', id=nith['id']) }}">
+                            <div><span>Öffnen</span></div><i class="fas fa-chevron-right"></i>
+                        </a>
+                    </div>
+                </div>
             </div>
             {% endfor %}
         </div>
-        <div class="topic-section species" id="drachen">
+        <div class="species" id="drachen">
             <h2>Drachen</h2>
             <i class="fas fa-angle-up" aria-hidden="true"></i>
         </div>
-        <div class="species_content drachen">
+        <div class="species_content drachen discussions">
             {% for drache in drachen %}
-            <div class="topic-section {{drache['name']}} {{drache['family']}}">
-                <a class="characters_name" href="{{url_for('characters.character', id=drache['id'])}}">
-                    <i class="fas fa-caret-right"></i>{{ drache['name'] }} {{ drache['family'] }}
-                </a>
+            <div class="card no_height topic-section {{drache['name']}} {{drache['family']}}">
+                <div class="discussion_topic">{{ drache['name'] }} {{ drache['family'] }}</div>
+                <div class="discussion_footer">
+                    <div>
+                        {% for info in all_character_information %}
+                            {% if info['character_id'] == drache['id'] %}
+                            <div class="discussion_author">{{ info['title'] }}: {{ info['value'] }}</div>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                    <div class="open_discussion">
+                        <a class="btnredirect" href="{{ url_for('characters.character', id=drache['id']) }}">
+                            <div><span>Öffnen</span></div><i class="fas fa-chevron-right"></i>
+                        </a>
+                    </div>
+                </div>
             </div>
             {% endfor %}
         </div>
-        <div class="topic-section species"  id="elfen">
+        <div class="species"  id="elfen">
             <h2>Elfen</h2>
             <i class="fas fa-angle-up" aria-hidden="true"></i>
         </div>
-        <div class="species_content elfen">
+        <div class="species_content elfen discussions">
             {% for elf in elfen %}
-            <div class="topic-section {{elf['name']}} {{elf['family']}}">
-                <a class="characters_name" href="{{url_for('characters.character', id=elf['id'])}}">
-                    <i class="fas fa-caret-right"></i>{{ elf['name'] }} {{ elf['family'] }}
-                </a>
+            <div class="card no_height topic-section {{elf['name']}} {{elf['family']}}">
+                <div class="discussion_topic">{{ elf['name'] }} {{ elf['family'] }}</div>
+                <div class="discussion_footer">
+                    <div>
+                        {% for info in all_character_information %}
+                            {% if info['character_id'] == elf['id'] %}
+                            <div class="discussion_author">{{ info['title'] }}: {{ info['value'] }}</div>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                    <div class="open_discussion">
+                        <a class="btnredirect" href="{{ url_for('characters.character', id=elf['id']) }}">
+                            <div><span>Öffnen</span></div><i class="fas fa-chevron-right"></i>
+                        </a>
+                    </div>
+                </div>
             </div>
             {% endfor %}
         </div>
-        <div class="topic-section species"  id="menschen">
+        <div class="species"  id="menschen">
             <h2>Menschen</h2>
             <i class="fas fa-angle-up" aria-hidden="true"></i>
         </div>
-        <div class="species_content menschen">
+        <div class="species_content menschen discussions">
             {% for mensch in menschen %}
-            <div class="topic-section {{mensch['name']}} {{mensch['family']}}">
-                <a class="characters_name" href="{{url_for('characters.character', id=mensch['id'])}}">
-                    <i class="fas fa-caret-right"></i>{{ mensch['name'] }} {{ mensch['family'] }}
-                </a>
+            <div class="card no_height topic-section {{mensch['name']}} {{mensch['family']}}">
+                <div class="discussion_topic">{{ mensch['name'] }} {{ mensch['family'] }}</div>
+                <div class="discussion_footer">
+                    <div>
+                        {% for info in all_character_information %}
+                            {% if info['character_id'] == mensch['id'] %}
+                            <div class="discussion_author">{{ info['title'] }}: {{ info['value'] }}</div>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                    <div class="open_discussion">
+                        <a class="btnredirect" href="{{ url_for('characters.character', id=mensch['id']) }}">
+                            <div><span>Öffnen</span></div><i class="fas fa-chevron-right"></i>
+                        </a>
+                    </div>
+                </div>
             </div>
             {% endfor %}
         </div>
-        <div class="topic-section species" id="zwerge">
+        <div class="species" id="zwerge">
             <h2>Zwerge</h2>
             <i class="fas fa-angle-up" aria-hidden="true"></i>
         </div>
-        <div class="species_content zwerge">
+        <div class="species_content zwerge discussions">
             {% for zwerg in zwerge %}
-            <div class="topic-section {{zwerg['name']}} {{zwerg['family']}}">
-                <a class="characters_name" href="{{url_for('characters.character', id=zwerg['id'])}}">
-                    <i class="fas fa-caret-right"></i>{{ zwerg['name'] }} {{ zwerg['family'] }}
-                </a>
+            <div class="card no_height topic-section {{zwerg['name']}} {{zwerg['family']}}">
+                <div class="discussion_topic">{{ zwerg['name'] }} {{ zwerg['family'] }}</div>
+                <div class="discussion_footer">
+                    <div>
+                        {% for info in all_character_information %}
+                            {% if info['character_id'] == zwerg['id'] %}
+                            <div class="discussion_author">{{ info['title'] }}: {{ info['value'] }}</div>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                    <div class="open_discussion">
+                        <a class="btnredirect" href="{{ url_for('characters.character', id=zwerg['id']) }}">
+                            <div><span>Öffnen</span></div><i class="fas fa-chevron-right"></i>
+                        </a>
+                    </div>
+                </div>
             </div>
             {% endfor %}
         </div>
